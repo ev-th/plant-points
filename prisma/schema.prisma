@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  clerkID String   @unique
+  email   String   @unique
+  recipes Recipe[]
+  meals   Meal[]
+}
+
+model Meal {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  recipeId String
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+
+  eatenAt DateTime @default(now())
+  userId  String
+  user    User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId])
+  @@unique([recipeId])
+}
+
+model Recipe {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name        String
+  ingredients Ingredient[]
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  meals  Meal[]
+
+  @@index([userId])
+}
+
+model Ingredient {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name    String
+  points  Decimal
+  recipes Recipe[]
+}
