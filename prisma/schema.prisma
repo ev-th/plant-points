@@ -16,7 +16,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  clerkID String   @unique
+  clerkId String   @unique
   email   String   @unique
   recipes Recipe[]
   meals   Meal[]
