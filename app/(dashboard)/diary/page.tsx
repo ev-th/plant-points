@@ -1,3 +1,5 @@
+import MealCard from "@/components/MealCard"
+import NewMealCard from "@/components/NewMealCard"
 import { getUserByClerkId } from "@/utils/auth"
 import { prisma } from "@/utils/db"
 
@@ -16,9 +18,15 @@ const getMeals = async () => {
 }
 
 const DiaryPage = async () => {
-    const entries = await getMeals()
+    const meals = await getMeals()
     return (
-        <div>Diary</div>
+        <div className="p-5">
+            <h2 className="text-3xl mb-8">Meal Diary</h2>
+            <div className="grid grid-cols-3 gap-4">
+                <NewMealCard />
+                {meals.map(meal => <MealCard key={meal.id} meal={meal} />)}
+            </div>
+        </div>
     )
 }
 
