@@ -9,7 +9,7 @@ const NewMealCard = () => {
   const handleOnClick = async () => {
     const recipe = await createNewRecipe()
     const meal = await createNewMeal(recipe.id)
-    router.push(`/meal/${meal.id}`)
+    router.push(`/diary/${meal.id}`)
   }
 
   return (

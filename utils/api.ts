@@ -1,4 +1,4 @@
-const createURL = (path) => {
+const createURL = (path: String) => {
   return window.location.origin + path
 }
 
@@ -15,7 +15,7 @@ export const createNewRecipe = async () => {
   }
 }
 
-export const createNewMeal = async (recipeId) => {
+export const createNewMeal = async (recipeId: String) => {
   const res = await fetch(
     new Request(createURL('/api/meal'), {
       method: 'POST',
