@@ -34,8 +34,8 @@ model Meal {
   userId  String
   user    User     @relation(fields: [userId], references: [id])
 
-  @@unique([userId])
-  @@unique([recipeId])
+  @@index([userId])
+  @@index([recipeId])
 }
 
 model Recipe {

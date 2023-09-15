@@ -1,14 +1,15 @@
 'use client'
 
-import { createNewMeal } from "@/utils/api"
+import { createNewMeal, createNewRecipe } from "@/utils/api"
 import { useRouter } from "next/navigation"
 
 const NewMealCard = () => {
   const router = useRouter()
 
   const handleOnClick = async () => {
-    const data = await createNewMeal()
-    router.push(`/meal/${data.id}`)
+    const recipe = await createNewRecipe()
+    const meal = await createNewMeal(recipe.id)
+    router.push(`/meal/${meal.id}`)
   }
 
   return (

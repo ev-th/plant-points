@@ -2,20 +2,15 @@ import { getUserByClerkId } from "@/utils/auth"
 import { prisma } from "@/utils/db"
 import { NextResponse } from "next/server"
 
-export const POST = async () => {
+export const POST = async (request) => {
   const user = await getUserByClerkId()
-
-  const recipe = await prisma.recipe.create({
-    data: {
-      userId: user.id,
-      name: 'New Recipe'
-    }
-  })
+  const { recipeId } = await request.json()
+  console.log(`recipeId - ${recipeId}`)
 
   const meal = await prisma.meal.create({
     data: {
       userId: user.id,
-      recipeId: recipe.id
+      recipeId: recipeId
     }
   })
 
