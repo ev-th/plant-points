@@ -15,6 +15,22 @@ export const createNewRecipe = async () => {
   }
 }
 
+export const updateRecipe = async (id, name) => {
+  const res = await fetch(
+    new Request(createURL(`/api/recipe/${id}`), {
+      method: 'PATCH',
+      body: JSON.stringify({
+        name
+      })
+    })
+  )
+
+  if (res.ok) {
+    const data = await res.json()
+    return data.data
+  }
+}
+
 export const createNewMeal = async (recipeId: String) => {
   const res = await fetch(
     new Request(createURL('/api/meal'), {
