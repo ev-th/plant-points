@@ -1,10 +1,10 @@
-import RecipeEditor from "@/components/RecipeEditor"
+import MealEditor from "@/components/MealEditor"
 import { getUserByClerkId } from "@/utils/auth"
 import { prisma } from "@/utils/db" 
 
-const getRecipe = async (id) => {
+const getMeal = async (id) => {
   const user = await getUserByClerkId()
-  const recipe = await prisma.recipe.findUnique({
+  const meal = await prisma.meal.findUnique({
     where: {
       userId_id: {
         userId: user.id,
@@ -13,17 +13,17 @@ const getRecipe = async (id) => {
     }
   })
 
-  return recipe
+  return meal
 }
 
-const RecipePage = async ({ params }) => {
-  const recipe = await getRecipe(params.id)
+const MealPage = async ({ params }) => {
+  const meal = await getMeal(params.id)
 
   return (
     <div>
-      <RecipeEditor recipe={recipe}/>
+      <MealEditor meal={meal}/>
     </div>
   )
 }
 
-export default RecipePage
+export default MealPage

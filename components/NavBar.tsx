@@ -10,7 +10,9 @@ export const NavBar = () => {
           
         </li>
         <li>
-          New Recipe
+          <Link href="/meal/new">
+            New Meal
+          </Link>
         </li>
         <li>
           Add to Diary

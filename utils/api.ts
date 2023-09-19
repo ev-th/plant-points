@@ -2,22 +2,27 @@ const createURL = (path: String) => {
   return window.location.origin + path
 }
 
-export const createNewRecipe = async () => {
+export const createNewMeal = async ({name, ingredientIds, date}) => {
   const res = await fetch(
-    new Request(createURL('/api/recipe'), {
-      method: 'POST'
+    new Request(createURL('/api/meal'), {
+      method: 'POST',
+      body: JSON.stringify({
+        name,
+        ingredientIds,
+        date
+      })
     })
   )
-
+  
   if (res.ok) {
     const data = await res.json()
     return data.data
   }
 }
-
-export const updateRecipe = async (id, name) => {
+  
+export const updateMeal = async (id, name) => {
   const res = await fetch(
-    new Request(createURL(`/api/recipe/${id}`), {
+    new Request(createURL(`/api/meal/${id}`), {
       method: 'PATCH',
       body: JSON.stringify({
         name
@@ -25,22 +30,6 @@ export const updateRecipe = async (id, name) => {
     })
   )
 
-  if (res.ok) {
-    const data = await res.json()
-    return data.data
-  }
-}
-
-export const createNewMeal = async (recipeId: String) => {
-  const res = await fetch(
-    new Request(createURL('/api/meal'), {
-      method: 'POST',
-      body: JSON.stringify({
-        recipeId: recipeId
-      })
-    })
-  )
-  
   if (res.ok) {
     const data = await res.json()
     return data.data

@@ -7,7 +7,7 @@ export const PATCH = async (request, { params }) => {
 
   const user = await getUserByClerkId()
 
-  const updatedRecipe = await prisma.recipe.update({
+  const updatedRecipe = await prisma.meal.update({
     where: {
       userId_id: {
         userId: user.id,

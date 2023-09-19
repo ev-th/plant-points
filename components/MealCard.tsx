@@ -3,9 +3,9 @@ const MealCard = ({ meal }) => {
 
     return (
       <div>
-        <div>{meal.recipe.name}</div>
+        <div>{meal.name}</div>
         <div>Eaten on {date}</div>
-        <div>{meal.recipe.ingredients}</div>
+        <div>{meal.ingredients}</div>
       </div>
     )
   }
