@@ -1,5 +1,4 @@
 import MealCard from "@/components/MealCard"
-import NewMealCard from "@/components/NewMealCard"
 import { getUserByClerkId } from "@/utils/auth"
 import { prisma } from "@/utils/db"
 import Link from "next/link"
@@ -9,6 +8,9 @@ const getMeals = async () => {
   const meals = await prisma.meal.findMany({
     where: {
       userId: user.id
+    },
+    include: {
+      ingredients: true
     },
     orderBy: {
       createdAt: 'desc',
@@ -23,9 +25,8 @@ const DiaryPage = async () => {
   
   return (
     <div className="p-5">
-      <h2 className="text-3xl mb-8">Meal Diary</h2>
-      <div className="grid grid-cols-3 gap-4">
-        <NewMealCard />
+      <h2 className="text-3xl mb-8">Your Meal Diary</h2>
+      <div>
         {meals.map(meal => 
           <Link key={meal.id} href={`/diary/${meal.id}`}>
             <MealCard meal={meal} />

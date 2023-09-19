@@ -5,36 +5,50 @@ import Select from 'react-select'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { createNewMeal } from '@/utils/api';
+import { useRouter } from 'next/navigation';
+
 
 const MealForm = ({ ingredientOptions }) => {
   const [name, setName] = useState("")
   const [ingredients, setIngredients] = useState([])
   const [date, setDate] = useState(new Date())
+  const [loading, setLoading] = useState(false)
+  
+  const router = useRouter()
 
   const ingredientsSelectOptions = ingredientOptions.map((ingredient) => {
     return { value: ingredient.id, label: ingredient.name}
   })
 
-  const submitForm = (e) => {
-    createNewMeal({
+  const submitForm = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+
+    await createNewMeal({
       name,
       ingredientIds: ingredients.map(ingredient => ingredient.value),
       date
     })
+    setLoading(false)
+
+    router.push('/diary')
   }
 
   return (
-    <form className="p-4" onSubmit={submitForm}>
-      <DatePicker selected={date} onChange={setDate}/>
-      <input
-        type="text"
-        placeholder="Meal Name"
-        value={name}
-        onChange={e => setName(e.target.value)}
-      />
-      <Select onChange={setIngredients} isMulti={true} options={ingredientsSelectOptions}/>
-      <input type="submit" />
-    </form>
+    <div>
+      {loading && <div>Loading...</div>}
+      <form className="p-4" onSubmit={submitForm}>
+        <DatePicker selected={date} onChange={setDate}/>
+        <input
+          type="text"
+          placeholder="Meal Name"
+          value={name}
+          onChange={e => setName(e.target.value)}
+        />
+        <Select onChange={setIngredients} isMulti={true} options={ingredientsSelectOptions}/>
+        <input type="submit" />
+      </form>
+    </div>
   )
 }
 

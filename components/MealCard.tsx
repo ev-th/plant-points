@@ -3,9 +3,11 @@ const MealCard = ({ meal }) => {
 
     return (
       <div>
-        <div>{meal.name}</div>
+        <h4 className="text-xl font-semibold">{meal.name}</h4>
         <div>Eaten on {date}</div>
-        <div>{meal.ingredients}</div>
+        {meal.ingredients.map(ingredient => (
+          <div key={meal.id}>- {ingredient.name}</div>)
+        )}
       </div>
     )
   }
