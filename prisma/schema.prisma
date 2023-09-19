@@ -16,9 +16,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  clerkId String   @unique
-  email   String   @unique
-  recipes Recipe[]
+  clerkId String @unique
+  email   String @unique
   meals   Meal[]
 }
 
@@ -27,28 +26,10 @@ model Meal {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  recipeId String
-  recipe   Recipe @relation(fields: [recipeId], references: [id])
-
-  eatenAt DateTime @default(now())
-  userId  String
-  user    User     @relation(fields: [userId], references: [id])
-
-  @@unique([userId, id])
-  @@unique([recipeId, id])
-}
-
-model Recipe {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  name        String
   ingredients Ingredient[]
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-  meals  Meal[]
+  eatenAt     DateTime     @default(now())
+  userId      String
+  user        User         @relation(fields: [userId], references: [id])
 
   @@unique([userId, id])
 }
@@ -58,7 +39,7 @@ model Ingredient {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name    String
-  points  Decimal
-  recipes Recipe[]
+  name   String
+  points Decimal
+  meals  Meal[]
 }
