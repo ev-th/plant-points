@@ -20,12 +20,14 @@ export const createNewMeal = async ({name, ingredientIds, date}) => {
   }
 }
   
-export const updateMeal = async (id, name) => {
+export const updateMeal = async ({id, name, ingredientIds, date}) => {
   const res = await fetch(
     new Request(createURL(`/api/meal/${id}`), {
       method: 'PATCH',
       body: JSON.stringify({
-        name
+        name,
+        ingredientIds,
+        date
       })
     })
   )

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server"
 import { prisma } from "@/utils/db"
 
 export const PATCH = async (request, { params }) => {
-  const { name } = await request.json()
+  const { name, ingredientIds, date } = await request.json()
 
   const user = await getUserByClerkId()
 
@@ -15,7 +15,11 @@ export const PATCH = async (request, { params }) => {
       }
     },
     data: {
-      name
+      name,
+      eatenAt: date,
+      ingredients: {
+        connect: ingredientIds.map(id => ({id: id}))
+      }
     }
   })
 

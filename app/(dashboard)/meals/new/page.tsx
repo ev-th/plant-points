@@ -8,7 +8,6 @@ const getIngredients = async () => {
       name: 'asc'
     }
   })
-  console.log("ingredients", ingredients)
   return ingredients
 }
 

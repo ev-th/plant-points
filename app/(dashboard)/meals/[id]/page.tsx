@@ -1,3 +1,4 @@
+import MealEditor from "@/components/MealEditor"
 import { getUserByClerkId } from "@/utils/auth"
 import { prisma } from "@/utils/db"
 
@@ -12,12 +13,22 @@ const getMeal = async (id) => {
   return meal
 }
 
+const getIngredients = async () => {
+  const ingredients = await prisma.ingredient.findMany({
+    orderBy: {
+      name: 'asc'
+    }
+  })
+  return ingredients
+}
+
 const MealPage = async ({ params }) => {
   const meal = await getMeal(params.id)
+  const ingredientOptions = await getIngredients()
+
   return (
     <div>
-      <div>{params.id}</div>
-      <div>{meal.id}</div>
+      <MealEditor meal={meal} ingredientOptions={ingredientOptions}/>
     </div>
   )
 }
