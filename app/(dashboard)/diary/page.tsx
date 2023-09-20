@@ -31,7 +31,7 @@ const DiaryPage = async () => {
       <PointsCard meals={meals}/>
       <div>
         {meals.map(meal => 
-          <Link key={meal.id} href={`/diary/${meal.id}`}>
+          <Link key={meal.id} href={`/meals/${meal.id}`}>
             <MealCard meal={meal} />
           </Link>
         )}

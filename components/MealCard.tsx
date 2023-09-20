@@ -2,7 +2,7 @@ const MealCard = ({ meal }) => {
   const date = new Date(meal.eatenAt).toDateString()
 
     return (
-      <div>
+      <div className="bg-green-300 rounded-lg p-2 my-1">
         <h4 className="text-xl font-semibold">{meal.name}</h4>
         <div>Eaten on {date}</div>
         {meal.ingredients.map(ingredient => (
