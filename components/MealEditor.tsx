@@ -4,14 +4,16 @@ import { useEffect, useState } from 'react'
 import Select from 'react-select'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
-import { updateMeal } from '@/utils/api';
-
+import { updateMeal, deleteMeal } from '@/utils/api';
+import { useRouter } from 'next/navigation';
 
 const MealEditor = ({ ingredientOptions, meal }) => {
   const [name, setName] = useState(meal.name)
   const [ingredients, setIngredients] = useState([])
   const [date, setDate] = useState(meal.eatenAt)
   const [loading, setLoading] = useState(false)
+
+  const router = useRouter()
 
   const getPreselectedIngredients = () => {
     const optionIds = ingredientOptions.map(ingredient => ingredient.id)
@@ -42,6 +44,16 @@ const MealEditor = ({ ingredientOptions, meal }) => {
     setLoading(false)
   }
 
+  const handleDelete = async () => {
+    setLoading(true)
+    
+    await deleteMeal(meal.id)
+    
+    setLoading(false)
+    router.replace('/diary')
+
+  }
+
   useEffect(() => {
     setIngredients(preselectedIngredients)
   }, [])
@@ -66,6 +78,7 @@ const MealEditor = ({ ingredientOptions, meal }) => {
         />
         <input type="submit" />
       </form>
+      <button className="bg-red-300 rounded-lg p-2" onClick={handleDelete}>Delete</button>
     </div>
   )
 }

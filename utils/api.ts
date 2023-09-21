@@ -37,3 +37,16 @@ export const updateMeal = async ({id, name, ingredientIds, date}) => {
     return data.data
   }
 }
+
+export const deleteMeal = async (id) => {
+  const res = await fetch(
+    new Request(createURL(`/api/meal/${id}`), {
+      method: 'DELETE'
+    })
+  )
+
+  if (res.ok) {
+    const data = await res.json()
+    return data.data
+  }
+}

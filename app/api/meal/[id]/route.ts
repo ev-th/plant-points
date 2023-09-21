@@ -25,3 +25,18 @@ export const PATCH = async (request, { params }) => {
 
   return NextResponse.json({ data: updatedRecipe })
 }
+
+export const DELETE = async (request, { params }) => {
+  const user = await getUserByClerkId()
+  
+  const deletedRecipe = await prisma.meal.delete({
+    where: {
+      userId_id: {
+        userId: user.id,
+        id: params.id
+      }
+    }
+  })
+
+  return NextResponse.json({ data: deletedRecipe })
+}
