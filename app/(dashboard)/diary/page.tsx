@@ -4,11 +4,15 @@ import { prisma } from "@/utils/db"
 import Link from "next/link"
 import PointsCard from "@/components/PointsCard"
 
-const getMeals = async () => {
+const getMeals = async (dateFrom, dateTo) => {
   const user = await getUserByClerkId()
   const meals = await prisma.meal.findMany({
     where: {
-      userId: user.id
+      userId: user.id,
+      eatenAt: {
+        lte: dateTo,
+        gte: dateFrom
+      }
     },
     include: {
       ingredients: true
@@ -22,7 +26,10 @@ const getMeals = async () => {
 }
 
 const DiaryPage = async () => {
-  const meals = await getMeals()
+  let oneWeekAgo = new Date()
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 6)
+  oneWeekAgo.setHours(0, 0, 0, 0)
+  const meals = await getMeals(oneWeekAgo, new Date())
   
   return (
     <div className="p-5">
