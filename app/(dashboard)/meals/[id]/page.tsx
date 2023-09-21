@@ -8,6 +8,9 @@ const getMeal = async (id) => {
     where: {
       userId: user.id,
       id
+    },
+    include: {
+      ingredients: true
     }
   })
   return meal

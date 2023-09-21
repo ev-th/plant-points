@@ -18,7 +18,7 @@ export const PATCH = async (request, { params }) => {
       name,
       eatenAt: date,
       ingredients: {
-        connect: ingredientIds.map(id => ({id: id}))
+        set: ingredientIds.map(id => ({id: id}))
       }
     }
   })

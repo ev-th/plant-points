@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Select from 'react-select'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
@@ -9,9 +9,25 @@ import { updateMeal } from '@/utils/api';
 
 const MealEditor = ({ ingredientOptions, meal }) => {
   const [name, setName] = useState(meal.name)
-  const [ingredients, setIngredients] = useState(meal.ingredients)
+  const [ingredients, setIngredients] = useState([])
   const [date, setDate] = useState(meal.eatenAt)
   const [loading, setLoading] = useState(false)
+
+  const getPreselectedIngredients = () => {
+    const optionIds = ingredientOptions.map(ingredient => ingredient.id)
+    const preselectedIds = meal.ingredients.map(ingredient => ingredient.id)
+    const indices = []
+    optionIds.forEach((id, index) => {
+      preselectedIds.includes(id) && indices.push(index)
+    })
+    return indices.map(i => ingredientsSelectOptions[i])
+  }
+  
+  const ingredientsSelectOptions = ingredientOptions.map((ingredient) => {
+    return { value: ingredient.id, label: ingredient.name}
+  })
+  
+  const preselectedIngredients = getPreselectedIngredients()
 
   const submitForm = async (e) => {
     e.preventDefault()
@@ -26,9 +42,9 @@ const MealEditor = ({ ingredientOptions, meal }) => {
     setLoading(false)
   }
 
-  const ingredientsSelectOptions = ingredientOptions.map((ingredient) => {
-    return { value: ingredient.id, label: ingredient.name}
-  })
+  useEffect(() => {
+    setIngredients(preselectedIngredients)
+  }, [])
 
   return (
     <div>
@@ -41,7 +57,13 @@ const MealEditor = ({ ingredientOptions, meal }) => {
           value={name}
           onChange={e => setName(e.target.value)}
         />
-        <Select onChange={setIngredients} isMulti={true} options={ingredientsSelectOptions}/>
+        <Select
+          onChange={setIngredients}
+          closeMenuOnSelect={false}
+          isMulti={true}
+          options={ingredientsSelectOptions}
+          defaultValue={preselectedIngredients}
+        />
         <input type="submit" />
       </form>
     </div>
