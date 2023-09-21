@@ -3,6 +3,7 @@ import { getUserByClerkId } from "@/utils/auth"
 import { prisma } from "@/utils/db"
 import Link from "next/link"
 import PointsCard from "@/components/PointsCard"
+import DayOfMealsCard from "@/components/DayOfMealsCard"
 
 const getMeals = async (dateFrom, dateTo) => {
   const user = await getUserByClerkId()
@@ -37,6 +38,7 @@ const DiaryPage = async () => {
       <h2 className="text-3xl mb-8">Your Meal Diary</h2>
       <PointsCard meals={meals}/>
       <div>
+        <DayOfMealsCard meals={meals} />
         {meals.map(meal => 
           <Link key={meal.id} href={`/meals/${meal.id}`}>
             <MealCard meal={meal} />
