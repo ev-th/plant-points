@@ -1,7 +1,5 @@
-import MealCard from "@/components/MealCard"
 import { getUserByClerkId } from "@/utils/auth"
 import { prisma } from "@/utils/db"
-import Link from "next/link"
 import PointsCard from "@/components/PointsCard"
 import DayOfMealsCard from "@/components/DayOfMealsCard"
 
@@ -18,9 +16,6 @@ const getMeals = async (dateFrom, dateTo) => {
     include: {
       ingredients: true
     },
-    orderBy: {
-      createdAt: 'desc',
-    },
   })
 
   return meals
@@ -31,20 +26,33 @@ const DiaryPage = async () => {
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 6)
   oneWeekAgo.setHours(0, 0, 0, 0)
   const meals = await getMeals(oneWeekAgo, new Date())
+
+  const sortMealsByDay = (meals) => {
+    const mealsByDay = {}
+    meals.forEach(meal => {
+      const date = meal.eatenAt.toDateString()
+      if (!mealsByDay[date]) {
+        mealsByDay[date] = [meal]
+      } else {
+        mealsByDay[date].push(meal)
+      }
+    })
+
+    const dates = Object.keys(mealsByDay).map(dateString => new Date(dateString))
+    const sortedDates = dates.sort((a, b) => b - a)
+    const sortedDateStrings = sortedDates.map(day => day.toDateString())
+    
+    return sortedDateStrings.map(day => mealsByDay[day])
+  }
+
+  const sortedMeals = sortMealsByDay(meals)
   
   return (
     <div className="p-5">
       
       <h2 className="text-3xl mb-8">Your Meal Diary</h2>
       <PointsCard meals={meals}/>
-      <div>
-        <DayOfMealsCard meals={meals} />
-        {meals.map(meal => 
-          <Link key={meal.id} href={`/meals/${meal.id}`}>
-            <MealCard meal={meal} />
-          </Link>
-        )}
-      </div>
+      {sortedMeals.map(dayOfMeals => <DayOfMealsCard meals={dayOfMeals} />)}
     </div>
   )
 }
