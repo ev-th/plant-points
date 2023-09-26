@@ -45,7 +45,12 @@ const MealForm = ({ ingredientOptions }) => {
           value={name}
           onChange={e => setName(e.target.value)}
         />
-        <Select onChange={setIngredients} isMulti={true} options={ingredientsSelectOptions}/>
+        <Select
+          onChange={setIngredients}
+          isMulti={true}
+          options={ingredientsSelectOptions}
+          closeMenuOnSelect={false}
+        />
         <input type="submit" />
       </form>
     </div>

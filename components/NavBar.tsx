@@ -11,11 +11,8 @@ export const NavBar = () => {
         </li>
         <li>
           <Link href="/meals/new">
-            New Meal
+            Add to Diary
           </Link>
-        </li>
-        <li>
-          Add to Diary
         </li>
         <li>
           <UserButton />
