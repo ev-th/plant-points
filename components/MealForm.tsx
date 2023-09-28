@@ -40,6 +40,7 @@ const MealForm = ({ ingredientOptions }) => {
       <form className="p-4" onSubmit={submitForm}>
         <DatePicker selected={date} onChange={setDate}/>
         <input
+          name="meal"
           type="text"
           placeholder="Meal Name"
           value={name}

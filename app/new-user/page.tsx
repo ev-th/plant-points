@@ -1,5 +1,6 @@
 import { prisma } from "@/utils/db"
 import { currentUser } from "@clerk/nextjs"
+import { revalidatePath } from "next/cache"
 import { redirect } from 'next/navigation'
 
 const createNewUser = async () => {
@@ -20,6 +21,7 @@ const createNewUser = async () => {
       }
     })
   }
+  revalidatePath('/diary')
   redirect('/diary')
 }
 

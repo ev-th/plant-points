@@ -1,6 +1,6 @@
 import { calculatePoints, getUniqueIngredients } from '@/utils/points'
 
-const PointsCard = ({meals}) => {
+const PointsCard = async ({meals}) => {
   const ingredients = getUniqueIngredients(meals)
   const points = calculatePoints(meals)
   return (
@@ -9,7 +9,7 @@ const PointsCard = ({meals}) => {
       <p className='font-semibold'>Ingredients you've eaten this week:</p>
       <ul>
         {ingredients.map(ingredient => (
-          <li key={ingredient.id}>- {ingredient.name}, points: {ingredient.points}</li>)
+          <li key={ingredient.id}>- {ingredient.name}, points: {ingredient.points.toString()}</li>)
         )}
       </ul>
     </div>
