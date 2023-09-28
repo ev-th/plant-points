@@ -8,10 +8,12 @@ import { updateMeal, deleteMeal } from '@/utils/api';
 import { useRouter } from 'next/navigation';
 
 const MealEditor = ({ ingredientOptions, meal }) => {
-  const [name, setName] = useState(meal.name)
-  const [ingredients, setIngredients] = useState([])
-  const [date, setDate] = useState(meal.eatenAt)
   const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    name: meal.name,
+    ingredients: [],
+    date: meal.eatenAt
+  })
 
   const router = useRouter()
 
@@ -34,6 +36,7 @@ const MealEditor = ({ ingredientOptions, meal }) => {
   const submitForm = async (e) => {
     e.preventDefault()
     setLoading(true)
+    const { name, ingredients, date } = formData
 
     await updateMeal({
       id: meal.id,
@@ -55,27 +58,33 @@ const MealEditor = ({ ingredientOptions, meal }) => {
   }
 
   useEffect(() => {
-    setIngredients(preselectedIngredients)
+    setFormData(prev => ({...prev, ingredients: preselectedIngredients}))
   }, [])
 
   return (
     <div>
       {loading && <div>Loading...</div>}
       <form className="p-4" onSubmit={submitForm}>
-        <DatePicker selected={date} onChange={setDate}/>
+        <DatePicker
+          selected={formData.date}
+          onChange={value => setFormData(prev => ({...prev, date: value}))}
+        />
+
         <input
           type="text"
           placeholder="Meal Name"
-          value={name}
-          onChange={e => setName(e.target.value)}
+          value={formData.name}
+          onChange={e => setFormData(prev => ({...prev, name: e.target.value}))}
         />
+
         <Select
-          onChange={setIngredients}
+          onChange={value => setFormData(prev => ({...prev, ingredients: value}))}
           closeMenuOnSelect={false}
           isMulti={true}
           options={ingredientsSelectOptions}
           defaultValue={preselectedIngredients}
         />
+
         <input type="submit" />
       </form>
       <button className="bg-red-300 rounded-lg p-2" onClick={handleDelete}>Delete</button>

@@ -9,10 +9,12 @@ import { useRouter } from 'next/navigation';
 
 
 const MealForm = ({ ingredientOptions }) => {
-  const [name, setName] = useState("")
-  const [ingredients, setIngredients] = useState([])
-  const [date, setDate] = useState(new Date())
   const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    name: "",
+    ingredients: [],
+    date: new Date()
+  })
   
   const router = useRouter()
 
@@ -23,6 +25,7 @@ const MealForm = ({ ingredientOptions }) => {
   const submitForm = async (e) => {
     e.preventDefault()
     setLoading(true)
+    const { name, ingredients, date } = formData
 
     await createNewMeal({
       name,
@@ -38,20 +41,26 @@ const MealForm = ({ ingredientOptions }) => {
     <div>
       {loading && <div>Loading...</div>}
       <form className="p-4" onSubmit={submitForm}>
-        <DatePicker selected={date} onChange={setDate}/>
+        <DatePicker
+          selected={formData.date}
+          onChange={value => setFormData(prev => ({...prev, date: value}))}
+        />
+
         <input
           name="meal"
           type="text"
           placeholder="Meal Name"
-          value={name}
-          onChange={e => setName(e.target.value)}
+          value={formData.name}
+          onChange={e => setFormData(prev => ({...prev, name: e.target.value}))}
         />
+
         <Select
-          onChange={setIngredients}
+          onChange={value => setFormData(prev => ({...prev, ingredients: value}))}
           isMulti={true}
           options={ingredientsSelectOptions}
           closeMenuOnSelect={false}
         />
+        
         <input type="submit" />
       </form>
     </div>
