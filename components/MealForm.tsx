@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form'
 
 import { createNewMeal, updateMeal, deleteMeal } from '@/utils/api';
+import { update } from '@/utils/actions';
 
 const MealForm = ({ ingredientOptions, meal }) => {
   const [loading, setLoading] = useState(false)
@@ -52,6 +53,7 @@ const MealForm = ({ ingredientOptions, meal }) => {
     }
 
     setLoading(false)
+    update(['/diary'])
     router.push('/diary')
   }
 
