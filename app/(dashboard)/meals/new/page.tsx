@@ -13,7 +13,6 @@ const getIngredients = async () => {
 
 const NewMealPage = async () => {
   const ingredients = await getIngredients()
-  ingredients.forEach(ingredient => ingredient.points = ingredient.points.toString())
 
   return (
     <div>

@@ -4,7 +4,6 @@ import PointsCard from "@/components/PointsCard"
 import DayOfMealsCard from "@/components/DayOfMealsCard"
 
 const getMeals = async (dateFrom, dateTo) => {
-  console.log("GET MEALS FUNCTION CALL")
   const user = await getUserByClerkId()
   const meals = await prisma.meal.findMany({
     where: {
@@ -26,7 +25,6 @@ const DiaryPage = async () => {
   let oneWeekAgo = new Date()
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 6)
   oneWeekAgo.setHours(0, 0, 0, 0)
-  console.log('DiaryPage');
   const meals = await getMeals(oneWeekAgo, new Date())
 
   const sortMealsByDay = (meals) => {
@@ -54,7 +52,7 @@ const DiaryPage = async () => {
       
       <h2 className="text-3xl mb-8">Your Meal Diary</h2>
       <PointsCard meals={meals}/>
-      {sortedMeals.map(dayOfMeals => <DayOfMealsCard meals={dayOfMeals} />)}
+      {sortedMeals.map(dayOfMeals => <DayOfMealsCard key={dayOfMeals[0].eatenAt} meals={dayOfMeals} />)}
     </div>
   )
 }

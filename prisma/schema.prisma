@@ -41,6 +41,6 @@ model Ingredient {
   updatedAt DateTime @updatedAt
 
   name   String
-  points Decimal
+  points Float
   meals  Meal[]
 }

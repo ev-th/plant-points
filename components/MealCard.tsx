@@ -9,7 +9,7 @@ const MealCard = ({ meal }) => {
         <p>Points: {points}</p>
         <ul>
           {meal.ingredients.map(ingredient => (
-            <li key={meal.id}>- {ingredient.name}</li>)
+            <li key={`${meal.id}_${ingredient.id}`}>- {ingredient.name}</li>)
           )}
         </ul>
       </div>

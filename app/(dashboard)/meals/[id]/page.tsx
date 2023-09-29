@@ -29,10 +29,6 @@ const MealPage = async ({ params }) => {
   const meal = await getMeal(params.id)
   const ingredientOptions = await getIngredients()
 
-  // Make the points value serialisable to pass to client component
-  meal?.ingredients.forEach(ingredient => ingredient.points = ingredient.points.toString())
-  ingredientOptions.forEach(ingredient => ingredient.points = ingredient.points.toString())
-
   return (
     <div>
       <MealForm meal={meal} ingredientOptions={ingredientOptions}  />
