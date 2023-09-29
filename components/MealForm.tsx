@@ -4,19 +4,18 @@ import { useState } from 'react'
 import Select from 'react-select'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
-import { createNewMeal } from '@/utils/api';
 import { useRouter } from 'next/navigation';
+import { useForm, Controller } from 'react-hook-form'
+// import { zodResolver } from '@hookform/resolvers/zod'
+// import { string, z } from 'zod'
 
-import { useForm, useController, Controller } from 'react-hook-form'
+import { createNewMeal } from '@/utils/api';
 
+// const schema = z.object
 
 const MealForm = ({ ingredientOptions }) => {
   const [loading, setLoading] = useState(false)
-  const [formData, setFormData] = useState({
-    name: "",
-    ingredients: [],
-    date: new Date()
-  })
+
   const { register, control, handleSubmit, formState: {errors} } = useForm({
     defaultValues: {
       name: "",
@@ -25,47 +24,26 @@ const MealForm = ({ ingredientOptions }) => {
     }
   })
 
-  // const { field } = useController({ name: "ingredients", control })
   const router = useRouter()
 
   const ingredientsSelectOptions = ingredientOptions.map((ingredient) => {
     return { value: ingredient.id, label: ingredient.name}
   })
 
-  console.log(errors)
-
   const submitForm = async (formValues) => {
-    // e.preventDefault()
     setLoading(true)
-    console.log("ingredients", formValues.ingredients)
 
     await createNewMeal({
       name: formValues.name,
       ingredientIds: formValues.ingredients.map(ingredient => ingredient.value),
       date: formValues.date
     })
-    setLoading(false)
-    console.log("formData111111111", formData)
-    console.log("formValues", formValues)
 
+    setLoading(false)
     router.push('/diary')
   }
 
-
-
-
-  const handleChange = (event) => {
-    const { name, value } = event.target
-    setFormData(prev => ({...prev, [name]: value}))
-  }
-  const handleIngredientsChange = (option) => {
-    console.log("option", option)
-    field.onChange(option)
-    // setFormData(prev => ({...prev, ingredients: option}))
-  }
-  const handleDateChange = (option) => {
-    setFormData(prev => ({...prev, date: option}))
-  }
+  console.log("errors", errors)
 
   return (
     <div>
@@ -79,32 +57,30 @@ const MealForm = ({ ingredientOptions }) => {
               {...field}
               selected={field.value}
             />
-
           )}
-        
         />
 
         <input
           type="text"
           placeholder="Meal Name"
-          {...register("name", { required: 'This is required', minLength: 4 })}
+          {...register("name", { required: 'This is required'})}
         />
+        <p>{errors.name?.message}</p>
+
         <Controller
           name="ingredients"
           control={control}
+          rules={{ required: 'This is also required' }}
           render={({ field }) => (
             <Select
-              {...field}
-              isMulti={true}
-              options={ingredientsSelectOptions}
-              closeMenuOnSelect={false}
-              // value={field.value}
-              // onChange={handleIngredientsChange}
+            {...field}
+            isMulti={true}
+            options={ingredientsSelectOptions}
+            closeMenuOnSelect={false}
             />
-
-          )}
-        
-        />
+            )}
+            />
+          <p>{errors.ingredients?.message}</p>
 
         <input type="submit" />
       </form>
