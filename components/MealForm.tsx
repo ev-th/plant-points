@@ -100,7 +100,7 @@ const MealForm = ({ ingredientOptions, meal }) => {
         />
         <p>{errors.ingredients?.message}</p>
 
-        <button type="submit">Save</button>
+        <button className="bg-green-300 rounded-lg p-2" type="submit">Save</button>
         {meal && <button className="bg-red-300 rounded-lg p-2" onClick={handleDelete}>Delete</button>}
       </form>
     </div>
