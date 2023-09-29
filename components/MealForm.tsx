@@ -6,45 +6,63 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form'
-// import { zodResolver } from '@hookform/resolvers/zod'
-// import { string, z } from 'zod'
 
-import { createNewMeal } from '@/utils/api';
+import { createNewMeal, updateMeal, deleteMeal } from '@/utils/api';
 
-// const schema = z.object
-
-const MealForm = ({ ingredientOptions }) => {
+const MealForm = ({ ingredientOptions, meal }) => {
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
+  
+  const ingredientsSelectOptions = ingredientOptions.map((ingredient) => {
+    return { value: ingredient.id, label: ingredient.name}
+  })
+
+  const getIngredientOptions = () => {
+    if (!meal) return []
+
+    const optionIds = ingredientOptions.map(ingredient => ingredient.id)
+    const selectedIds = meal.ingredients.map(ingredient => ingredient.id)
+
+    const indices = []
+    optionIds.forEach((id, i) => selectedIds.includes(id) && indices.push(i))
+    return indices.map(i => ingredientsSelectOptions[i])
+  }
 
   const { register, control, handleSubmit, formState: {errors} } = useForm({
     defaultValues: {
-      name: "",
-      ingredients: [],
-      date: new Date()
+      name: meal?.name ?? "",
+      ingredients: getIngredientOptions(),
+      date: meal?.date ?? new Date()
     }
-  })
-
-  const router = useRouter()
-
-  const ingredientsSelectOptions = ingredientOptions.map((ingredient) => {
-    return { value: ingredient.id, label: ingredient.name}
   })
 
   const submitForm = async (formValues) => {
     setLoading(true)
 
-    await createNewMeal({
+    const mealData = {
       name: formValues.name,
       ingredientIds: formValues.ingredients.map(ingredient => ingredient.value),
       date: formValues.date
-    })
+    }
+
+    if (meal) {
+      await updateMeal({...mealData, id: meal.id})
+    } else {
+      await createNewMeal(mealData)
+    }
 
     setLoading(false)
     router.push('/diary')
   }
 
-  console.log("errors", errors)
-
+  const handleDelete = async () => {
+    setLoading(true)
+    
+    await deleteMeal(meal.id)
+    
+    setLoading(false)
+    router.replace('/diary')
+  }
   return (
     <div>
       {loading && <div>Loading...</div>}
@@ -78,11 +96,12 @@ const MealForm = ({ ingredientOptions }) => {
             options={ingredientsSelectOptions}
             closeMenuOnSelect={false}
             />
-            )}
-            />
-          <p>{errors.ingredients?.message}</p>
+          )}
+        />
+        <p>{errors.ingredients?.message}</p>
 
-        <input type="submit" />
+        <button type="submit">Save</button>
+        {meal && <button className="bg-red-300 rounded-lg p-2" onClick={handleDelete}>Delete</button>}
       </form>
     </div>
   )

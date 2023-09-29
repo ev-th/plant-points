@@ -1,4 +1,4 @@
-import MealEditor from "@/components/MealEditor"
+import MealForm from "@/components/MealForm"
 import { getUserByClerkId } from "@/utils/auth"
 import { prisma } from "@/utils/db"
 
@@ -35,7 +35,7 @@ const MealPage = async ({ params }) => {
 
   return (
     <div>
-      <MealEditor meal={meal} ingredientOptions={ingredientOptions} data-superjson />
+      <MealForm meal={meal} ingredientOptions={ingredientOptions}  />
     </div>
   )
 }
