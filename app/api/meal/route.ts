@@ -2,7 +2,7 @@ import { getUserByClerkId } from "@/utils/auth"
 import { prisma } from "@/utils/db"
 import { NextResponse } from "next/server"
 
-export const POST = async (request) => {
+export const POST = async (request: Request) => {
   const user = await getUserByClerkId()
   const { name, ingredientIds, date } = await request.json()
 
@@ -12,7 +12,7 @@ export const POST = async (request) => {
       name,
       eatenAt: date,
       ingredients: {
-        connect: ingredientIds.map(id => ({id: id}))
+        connect: ingredientIds.map((id: String) => ({id: id}))
       }
     }
   })

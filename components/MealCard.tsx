@@ -1,4 +1,6 @@
-const MealCard = ({ meal }) => {
+import { MealWithIngredients } from "@/utils/types"
+
+const MealCard = ({ meal }: { meal: MealWithIngredients }) => {
   const date = new Date(meal.eatenAt).toDateString()
   const points = meal.ingredients.reduce((sum, ingredient) => sum + +ingredient.points, 0)
 

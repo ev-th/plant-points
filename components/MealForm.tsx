@@ -6,11 +6,13 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form'
+import type { Ingredient } from '@prisma/client';
+import { MealWithIngredients } from '@/utils/types';
 
 import { createNewMeal, updateMeal, deleteMeal } from '@/utils/api';
 import { update } from '@/utils/actions';
 
-const MealForm = ({ ingredientOptions, meal }) => {
+const MealForm = ({ ingredientOptions, meal }: { ingredientOptions: Ingredient[], meal?: MealWithIngredients }) => {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   
@@ -24,7 +26,7 @@ const MealForm = ({ ingredientOptions, meal }) => {
     const optionIds = ingredientOptions.map(ingredient => ingredient.id)
     const selectedIds = meal.ingredients.map(ingredient => ingredient.id)
 
-    const indices = []
+    const indices: number[] = []
     optionIds.forEach((id, i) => selectedIds.includes(id) && indices.push(i))
     return indices.map(i => ingredientsSelectOptions[i])
   }
@@ -33,16 +35,16 @@ const MealForm = ({ ingredientOptions, meal }) => {
     defaultValues: {
       name: meal?.name ?? "",
       ingredients: getIngredientOptions(),
-      date: meal?.date ?? new Date()
+      date: meal?.eatenAt ?? new Date()
     }
   })
 
-  const submitForm = async (formValues) => {
+  const submitForm = async (formValues: {name: string, ingredients: {value: string}[], date: Date}) => {
     setLoading(true)
 
     const mealData = {
       name: formValues.name,
-      ingredientIds: formValues.ingredients.map(ingredient => ingredient.value),
+      ingredientIds: formValues.ingredients.map((ingredient: {value: string}) => ingredient.value),
       date: formValues.date
     }
 
@@ -74,7 +76,7 @@ const MealForm = ({ ingredientOptions, meal }) => {
           control={control}
           render={({ field }) => (
             <DatePicker
-              {...field}
+              // {...field}
               selected={field.value}
             />
           )}

@@ -2,8 +2,9 @@ import { getUserByClerkId } from "@/utils/auth"
 import { prisma } from "@/utils/db"
 import PointsCard from "@/components/PointsCard"
 import DayOfMealsCard from "@/components/DayOfMealsCard"
+import { MealWithIngredients } from "@/utils/types"
 
-const getMeals = async (dateFrom, dateTo) => {
+const getMeals = async (dateFrom: Date, dateTo: Date) => {
   const user = await getUserByClerkId()
   const meals = await prisma.meal.findMany({
     where: {
@@ -27,8 +28,8 @@ const DiaryPage = async () => {
   oneWeekAgo.setHours(0, 0, 0, 0)
   const meals = await getMeals(oneWeekAgo, new Date())
 
-  const sortMealsByDay = (meals) => {
-    const mealsByDay = {}
+  const sortMealsByDay = (meals: MealWithIngredients[]) => {
+    const mealsByDay: Record<string, MealWithIngredients[]> = {}
     meals.forEach(meal => {
       const date = meal.eatenAt.toDateString()
       if (!mealsByDay[date]) {
@@ -39,7 +40,7 @@ const DiaryPage = async () => {
     })
 
     const dates = Object.keys(mealsByDay).map(dateString => new Date(dateString))
-    const sortedDates = dates.sort((a, b) => b - a)
+    const sortedDates = dates.sort((a, b) => b.valueOf() - a.valueOf())
     const sortedDateStrings = sortedDates.map(day => day.toDateString())
     
     return sortedDateStrings.map(day => mealsByDay[day])
@@ -52,7 +53,7 @@ const DiaryPage = async () => {
       
       <h2 className="text-3xl mb-8">Your Meal Diary</h2>
       <PointsCard meals={meals}/>
-      {sortedMeals.map(dayOfMeals => <DayOfMealsCard key={dayOfMeals[0].eatenAt} meals={dayOfMeals} />)}
+      {sortedMeals.map(dayOfMeals => <DayOfMealsCard key={dayOfMeals[0].eatenAt.toDateString()} meals={dayOfMeals} />)}
     </div>
   )
 }

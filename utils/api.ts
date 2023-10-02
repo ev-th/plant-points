@@ -2,7 +2,7 @@ const createURL = (path: String) => {
   return window.location.origin + path
 }
 
-export const createNewMeal = async ({name, ingredientIds, date}) => {
+export const createNewMeal = async ({name, ingredientIds, date}: {name: string, ingredientIds: string[], date: Date}) => {
   const res = await fetch(
     new Request(createURL('/api/meal'), {
       method: 'POST',
@@ -20,7 +20,7 @@ export const createNewMeal = async ({name, ingredientIds, date}) => {
   }
 }
   
-export const updateMeal = async ({id, name, ingredientIds, date}) => {
+export const updateMeal = async ({id, name, ingredientIds, date}: {id: string, name: string, ingredientIds: string[], date: Date}) => {
   const res = await fetch(
     new Request(createURL(`/api/meal/${id}`), {
       method: 'PATCH',
@@ -38,7 +38,7 @@ export const updateMeal = async ({id, name, ingredientIds, date}) => {
   }
 }
 
-export const deleteMeal = async (id) => {
+export const deleteMeal = async (id: string) => {
   const res = await fetch(
     new Request(createURL(`/api/meal/${id}`), {
       method: 'DELETE'
