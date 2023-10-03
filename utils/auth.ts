@@ -1,14 +1,17 @@
 import { auth } from "@clerk/nextjs"
 import { prisma } from "./db"
+import { User } from "@prisma/client"
 
-export const getUserByClerkId = async () => {
-    const { userId } = await auth()
+export const getUserByClerkId = async (): Promise<User | undefined>=> {
+  const { userId } = auth()
 
-    const user = await prisma.user.findUniqueOrThrow({
-        where: {
-            clerkId: userId,
-        },
-    })
+	if(userId) {
+		const user = await prisma.user.findUniqueOrThrow({
+			where: {
+					clerkId: userId,
+			},
+		})
 
-    return user
+		return user
+	}
 }

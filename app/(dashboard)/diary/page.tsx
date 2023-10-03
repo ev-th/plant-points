@@ -4,7 +4,7 @@ import PointsCard from "@/components/PointsCard"
 import DayOfMealsCard from "@/components/DayOfMealsCard"
 import { MealWithIngredients } from "@/utils/types"
 
-const getMeals = async (dateFrom: Date, dateTo: Date) => {
+const getMeals = async (dateFrom: Date, dateTo: Date): Promise<MealWithIngredients[]> => {
   const user = await getUserByClerkId()
   const meals = await prisma.meal.findMany({
     where: {
@@ -22,14 +22,18 @@ const getMeals = async (dateFrom: Date, dateTo: Date) => {
   return meals
 }
 
-const DiaryPage = async () => {
+const getDateFromWeekAgo = () => {
   let oneWeekAgo = new Date()
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 6)
   oneWeekAgo.setHours(0, 0, 0, 0)
-  const meals = await getMeals(oneWeekAgo, new Date())
+  return oneWeekAgo
+}
 
+const DiaryPage = async () => {
+  
   const sortMealsByDay = (meals: MealWithIngredients[]) => {
     const mealsByDay: Record<string, MealWithIngredients[]> = {}
+    
     meals.forEach(meal => {
       const date = meal.eatenAt.toDateString()
       if (!mealsByDay[date]) {
@@ -38,14 +42,15 @@ const DiaryPage = async () => {
         mealsByDay[date].push(meal)
       }
     })
-
+    
     const dates = Object.keys(mealsByDay).map(dateString => new Date(dateString))
     const sortedDates = dates.sort((a, b) => b.valueOf() - a.valueOf())
     const sortedDateStrings = sortedDates.map(day => day.toDateString())
     
     return sortedDateStrings.map(day => mealsByDay[day])
   }
-
+  
+  const meals = await getMeals(getDateFromWeekAgo(), new Date())
   const sortedMeals = sortMealsByDay(meals)
   
   return (

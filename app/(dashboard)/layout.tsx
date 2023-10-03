@@ -1,6 +1,10 @@
 import { NavBar } from "@/components/NavBar"
 
-const DashboardLayout = ({ children }) => {
+type DashboardLayoutProps = {
+  children: React.ReactNode
+}
+
+const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
     <div className="h-screen w-screen">
       <NavBar />
