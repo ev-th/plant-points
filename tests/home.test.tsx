@@ -5,7 +5,7 @@ import Home from '../app/page'
 vi.mock('@clerk/nextjs', () => {
   return {
     auth: () => ({userId: 'mock_user_id'}),
-    ClerkProvider: ({children}) => <div>{ children }</div>,
+    ClerkProvider: ({children}: {children: React.ReactNode}) => <div>{ children }</div>,
     useUser: () => ({
       isSignedIn: true,
       user: {
