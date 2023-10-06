@@ -76,7 +76,7 @@ const MealForm = ({ ingredientOptions, meal }: { ingredientOptions: Ingredient[]
           control={control}
           render={({ field }) => (
             <DatePicker
-              // {...field}
+              {...field}
               selected={field.value}
             />
           )}

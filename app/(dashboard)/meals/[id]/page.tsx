@@ -1,8 +1,9 @@
 import MealForm from "@/components/MealForm"
 import { getUserByClerkId } from "@/utils/auth"
 import { prisma } from "@/utils/db"
+import { MealWithIngredients } from "@/utils/types"
 
-const getMeal = async (id: string) => {
+const getMeal = async (id: string): Promise<MealWithIngredients> => {
   const user = await getUserByClerkId()
   const meal = await prisma.meal.findUnique({
     where: {
