@@ -4,9 +4,14 @@ import PointsCard from "@/components/PointsCard"
 import DayOfMealsCard from "@/components/DayOfMealsCard"
 import { MealWithIngredients } from "@/utils/types"
 
-const getMeals = async (dateFrom: Date, dateTo: Date): Promise<MealWithIngredients[]> => {
+const getMeals = async (dateFrom: Date, dateTo: Date): Promise<MealWithIngredients[]> => { 
   const user = await getUserByClerkId()
-  const meals = await prisma.meal.findMany({
+
+  if (!user) {
+    throw new Error("Authentication failed.")
+  }
+  
+  return prisma.meal.findMany({
     where: {
       userId: user.id,
       eatenAt: {
@@ -18,8 +23,6 @@ const getMeals = async (dateFrom: Date, dateTo: Date): Promise<MealWithIngredien
       ingredients: true
     },
   })
-
-  return meals
 }
 
 const getDateFromWeekAgo = () => {

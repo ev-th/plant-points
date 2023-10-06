@@ -45,7 +45,7 @@ const MealForm = ({ ingredientOptions, meal }: { ingredientOptions: Ingredient[]
     const mealData = {
       name: formValues.name,
       ingredientIds: formValues.ingredients.map((ingredient: {value: string}) => ingredient.value),
-      date: formValues.date
+      date: new Date(formValues.date)
     }
 
     if (meal) {
@@ -61,12 +61,15 @@ const MealForm = ({ ingredientOptions, meal }: { ingredientOptions: Ingredient[]
 
   const handleDelete = async () => {
     setLoading(true)
-    
-    await deleteMeal(meal.id)
+
+    if (meal) {
+      await deleteMeal(meal.id)
+    }
     
     setLoading(false)
     router.replace('/diary')
   }
+
   return (
     <div>
       {loading && <div>Loading...</div>}

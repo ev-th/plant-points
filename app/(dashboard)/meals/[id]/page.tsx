@@ -5,7 +5,12 @@ import { MealWithIngredients } from "@/utils/types"
 
 const getMeal = async (id: string): Promise<MealWithIngredients> => {
   const user = await getUserByClerkId()
-  const meal = await prisma.meal.findUnique({
+
+  if (!user) {
+    throw new Error("Authentication failed.")
+  }
+
+  return prisma.meal.findUniqueOrThrow({
     where: {
       userId: user.id,
       id
@@ -14,7 +19,6 @@ const getMeal = async (id: string): Promise<MealWithIngredients> => {
       ingredients: true
     }
   })
-  return meal
 }
 
 const getIngredients = async () => {
