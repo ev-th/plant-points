@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { auth } from '@clerk/nextjs';
 
-const Home = async () => {
-  const { userId } = await auth()
+const Home = () => {
+  const { userId } = auth()
   const href = userId ? '/diary' : '/new-user'
 
   return (
