@@ -10,7 +10,7 @@ const getMeals = async (dateFrom: Date, dateTo: Date): Promise<MealWithIngredien
   if (!user) {
     throw new Error("Authentication failed.")
   }
-  
+
   return prisma.meal.findMany({
     where: {
       userId: user.id,
@@ -25,8 +25,8 @@ const getMeals = async (dateFrom: Date, dateTo: Date): Promise<MealWithIngredien
   })
 }
 
-const getDateFromWeekAgo = () => {
-  let oneWeekAgo = new Date()
+const getDateFromWeekAgo = (currentDate: Date) => {
+  const oneWeekAgo = currentDate
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 6)
   oneWeekAgo.setHours(0, 0, 0, 0)
   return oneWeekAgo
@@ -53,7 +53,7 @@ const DiaryPage = async () => {
     return sortedDateStrings.map(day => mealsByDay[day])
   }
   
-  const meals = await getMeals(getDateFromWeekAgo(), new Date())
+  const meals = await getMeals(getDateFromWeekAgo(new Date()), new Date())
   const sortedMeals = sortMealsByDay(meals)
   
   return (
