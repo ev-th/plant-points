@@ -1,8 +1,9 @@
 import Link from "next/link"
 
 import MealCard from "./MealCard"
+import { MealWithIngredients } from "@/utils/types"
 
-const DayOfMealsCard = ({meals}) => {
+const DayOfMealsCard = ({meals}: {meals: MealWithIngredients[]}) => {
   const date = new Date(meals[0].eatenAt).toDateString()
   return (
     <div className="bg-pink-200 p-2 rounded-lg my-1">
