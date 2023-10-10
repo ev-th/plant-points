@@ -1,36 +1,8 @@
-import { getUserByClerkId } from "@/utils/auth"
-import { prisma } from "@/utils/db"
 import PointsCard from "@/components/PointsCard"
 import DayOfMealsCard from "@/components/DayOfMealsCard"
 import { MealWithIngredients } from "@/utils/types"
-
-export const getMeals = async (dateFrom: Date, dateTo: Date): Promise<MealWithIngredients[]> => { 
-  const user = await getUserByClerkId()
-
-  if (!user) {
-    throw new Error("Authentication failed.")
-  }
-
-  return prisma.meal.findMany({
-    where: {
-      userId: user.id,
-      eatenAt: {
-        lte: dateTo,
-        gte: dateFrom
-      }
-    },
-    include: {
-      ingredients: true
-    },
-  })
-}
-
-export const getDateFromSixDaysAgo = (currentDate: Date) => {
-  const oneWeekAgo = currentDate
-  oneWeekAgo.setDate(oneWeekAgo.getDate() - 6)
-  oneWeekAgo.setHours(0, 0, 0, 0)
-  return oneWeekAgo
-}
+import { getMeals } from "@/utils/getMeals"
+import { getDateFromSixDaysAgo } from "@/utils/getDateFromSixDaysAgo"
 
 const DiaryPage = async () => {
   
