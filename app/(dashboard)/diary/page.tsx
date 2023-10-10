@@ -4,7 +4,7 @@ import PointsCard from "@/components/PointsCard"
 import DayOfMealsCard from "@/components/DayOfMealsCard"
 import { MealWithIngredients } from "@/utils/types"
 
-const getMeals = async (dateFrom: Date, dateTo: Date): Promise<MealWithIngredients[]> => { 
+export const getMeals = async (dateFrom: Date, dateTo: Date): Promise<MealWithIngredients[]> => { 
   const user = await getUserByClerkId()
 
   if (!user) {
@@ -25,7 +25,7 @@ const getMeals = async (dateFrom: Date, dateTo: Date): Promise<MealWithIngredien
   })
 }
 
-const getDateFromWeekAgo = (currentDate: Date) => {
+export const getDateFromSixDaysAgo = (currentDate: Date) => {
   const oneWeekAgo = currentDate
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 6)
   oneWeekAgo.setHours(0, 0, 0, 0)
@@ -53,7 +53,7 @@ const DiaryPage = async () => {
     return sortedDateStrings.map(day => mealsByDay[day])
   }
   
-  const meals = await getMeals(getDateFromWeekAgo(new Date()), new Date())
+  const meals = await getMeals(getDateFromSixDaysAgo(new Date()), new Date())
   const sortedMeals = sortMealsByDay(meals)
   
   return (
