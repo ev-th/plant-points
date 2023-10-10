@@ -5,8 +5,11 @@ import { redirect } from 'next/navigation'
 
 const createNewUser = async () => {
   const user = await currentUser()
-  console.log(user)
 
+  if (!user) {
+    throw new Error('Could not add new user to the database')
+  }
+  
   const match = await prisma.user.findUnique({
     where: {
       clerkId: user.id as string,
