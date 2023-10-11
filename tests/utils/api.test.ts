@@ -13,7 +13,7 @@ describe(createNewMeal, () => {
     const date = new Date('2023-10-11')
     const ingredientIds = ['1', '2', '3']
 
-    fetchMocker.mockResponseOnce(JSON.stringify({status: 200}))
+    fetchMocker.mockResponseOnce(JSON.stringify({}), { status: 200 })
 
     const expectedRequest = new Request('http://localhost:3000/api/meal', {
       method: 'POST',
@@ -35,7 +35,6 @@ describe(createNewMeal, () => {
     const ingredientIds = ['1', '2', '3']
   
     fetchMocker.mockResponseOnce(JSON.stringify({
-      status: 200,
       data: {
         name, date, ingredientIds
       }
@@ -80,7 +79,7 @@ describe(updateMeal, () => {
     const date = new Date('2023-10-11')
     const ingredientIds = ['1', '2', '3']
 
-    fetchMocker.mockResponseOnce(JSON.stringify({status: 200}))
+    fetchMocker.mockResponseOnce(JSON.stringify({}), { status: 200 })
 
     const expectedRequest = new Request('http://localhost:3000/api/meal/1234', {
       method: 'PATCH',
@@ -103,7 +102,6 @@ describe(updateMeal, () => {
     const ingredientIds = ['1', '2', '3']
   
     fetchMocker.mockResponseOnce(JSON.stringify({
-      status: 200,
       data: {
         id, name, date, ingredientIds
       }
@@ -159,7 +157,7 @@ describe(deleteMeal, () => {
   test('sends a DELETE request to /api/meal/:id', async () => {
     const id = '1234'
 
-    fetchMocker.mockResponseOnce(JSON.stringify({status: 200}))
+    fetchMocker.mockResponseOnce(JSON.stringify({}), { status: 200 })
 
     const expectedRequest = new Request('http://localhost:3000/api/meal/1234', {
       method: 'DELETE'
@@ -177,7 +175,6 @@ describe(deleteMeal, () => {
     const ingredientIds = ['1', '2', '3']
   
     fetchMocker.mockResponseOnce(JSON.stringify({
-      status: 200,
       data: {
         id,
         name,
@@ -223,4 +220,3 @@ describe(deleteMeal, () => {
     }).rejects.toThrowError('Internal Server Error')
   })
 })
-
