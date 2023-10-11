@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs"
 import { prisma } from "./db"
 import { User } from "@prisma/client"
 
-export const getUserByClerkId = async (): Promise<User | undefined>=> {
+export const getUserByClerkId = async (): Promise<User>=> {
   const { userId } = auth()
 
 	if (!userId) {
