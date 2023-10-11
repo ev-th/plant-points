@@ -5,10 +5,6 @@ import { prisma } from "@/utils/db"
 export const getMeals = async (dateFrom: Date, dateTo: Date): Promise<MealWithIngredients[]> => { 
   const user = await getUserByClerkId()
 
-  if (!user) {
-    throw new Error("Authentication failed.")
-  }
-
   return prisma.meal.findMany({
     where: {
       userId: user.id,
