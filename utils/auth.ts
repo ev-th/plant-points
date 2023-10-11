@@ -2,8 +2,12 @@ import { auth } from "@clerk/nextjs"
 import { prisma } from "./db"
 import { User } from "@prisma/client"
 
-export const getUserByClerkId = async (): Promise<User | undefined>=> {
+export const getUserByClerkId = async (): Promise<User>=> {
   const { userId } = auth()
+
+	if (!userId) {
+		throw new Error('Unauthorized')
+	}
 
 	if(userId) {
 		const user = await prisma.user.findUniqueOrThrow({
@@ -11,7 +15,7 @@ export const getUserByClerkId = async (): Promise<User | undefined>=> {
 					clerkId: userId,
 			},
 		})
-
+		
 		return user
 	}
 }
