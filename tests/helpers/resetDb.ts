@@ -4,8 +4,8 @@ const prisma = new PrismaClient()
 
 const resetDb =  async () => {
   await prisma.$transaction([
-    prisma.user.deleteMany(),
     prisma.meal.deleteMany(),
+    prisma.user.deleteMany(),
     prisma.ingredient.deleteMany()
   ])
 }
