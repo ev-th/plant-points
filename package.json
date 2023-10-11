@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@types/react-datepicker": "^4.15.1",
-    "prisma": "^5.3.0"
+    "prisma": "^5.3.0",
+    "vitest-fetch-mock": "^0.2.2"
   }
 }

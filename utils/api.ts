@@ -18,6 +18,14 @@ export const createNewMeal = async ({name, ingredientIds, date}: {name: string, 
     const data = await res.json()
     return data.data
   }
+  
+  if (res.status === 400) {
+    throw new Error('Bad Request')
+  }
+
+  if (res.status === 500) {
+    throw new Error('Internal Server Error')
+  }
 }
   
 export const updateMeal = async ({id, name, ingredientIds, date}: {id: string, name: string, ingredientIds: string[], date: Date}) => {
@@ -36,6 +44,18 @@ export const updateMeal = async ({id, name, ingredientIds, date}: {id: string, n
     const data = await res.json()
     return data.data
   }
+  
+  if (res.status === 400) {
+    throw new Error('Bad Request')
+  }
+  
+  if (res.status === 401) {
+    throw new Error('Unauthorized')
+  }
+
+  if (res.status === 500) {
+    throw new Error('Internal Server Error')
+  }
 }
 
 export const deleteMeal = async (id: string) => {
@@ -48,5 +68,17 @@ export const deleteMeal = async (id: string) => {
   if (res.ok) {
     const data = await res.json()
     return data.data
+  }
+  
+  if (res.status === 400) {
+    throw new Error('Bad Request')
+  }
+
+  if (res.status === 401) {
+    throw new Error('Unauthorized')
+  }
+
+  if (res.status === 500) {
+    throw new Error('Internal Server Error')
   }
 }
