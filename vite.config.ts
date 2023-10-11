@@ -10,7 +10,7 @@ export default defineConfig({
     include: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
     globals: true,
     environment: 'jsdom',
-    setupFiles: 'setupTests',
+    setupFiles: './tests/helpers/setup.ts',
     mockReset: true,
   },
 })
