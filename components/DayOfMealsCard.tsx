@@ -1,19 +1,21 @@
 import Link from "next/link"
 
-import MealCard from "./MealCard"
+import MealCard from "@/components/MealCard"
 import { MealWithIngredients } from "@/utils/types"
 
 const DayOfMealsCard = ({meals}: {meals: MealWithIngredients[]}) => {
   const date = new Date(meals[0].eatenAt).toDateString()
   return (
     <div className="bg-pink-200 p-2 rounded-lg my-1">
-      <p>Eaten on {date}</p>
-      <div className="flex gap-2">
+      <p role="region">Eaten on {date}</p>
+      <ul role="list" className="flex gap-2">
         {meals.map(meal => (
-          <Link key={meal.id} href={`/meals/${meal.id}`}>
-            <MealCard key={meal.id} meal={meal}/>
-          </Link>))}
-      </div>
+          <li key={meal.id}>
+            <Link role="link" href={`/meals/${meal.id}`}>
+              <MealCard meal={meal}/>
+            </Link>
+          </li>))}
+      </ul>
     </div>
   )
 }
