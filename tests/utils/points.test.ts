@@ -1,4 +1,6 @@
 import { calculatePoints, getUniqueIngredients } from "@/utils/points";
+import { MealWithIngredients } from "@/utils/types"
+
 
 describe(calculatePoints, () => {
   test('takes an array of meals and sums all the points of unique ingredients', () => {
@@ -8,7 +10,7 @@ describe(calculatePoints, () => {
       {ingredients: [{id:'1', points: 1}, {id:'4', points: 0.25}]},
     ]
 
-    const result = calculatePoints(meals)
+  const result = calculatePoints(meals as MealWithIngredients[])
     const expected = 3.25
 
     expect(result).toBe(expected)
@@ -23,7 +25,7 @@ describe(getUniqueIngredients, () => {
       {ingredients: [{id:'1', points: 1}, {id:'4', points: 0.25}]},
     ]
 
-    const result = getUniqueIngredients(meals)
+    const result = getUniqueIngredients(meals as MealWithIngredients[])
     const expected = [
       {id: '1', points: 1},
       {id: '2', points: 1},
