@@ -73,36 +73,43 @@ const MealForm = ({ ingredientOptions, meal }: { ingredientOptions: Ingredient[]
   return (
     <div>
       {loading && <div>Loading...</div>}
-      <form className="p-4" onSubmit={handleSubmit(submitForm)}>
+      <form aria-label={"meal form"} className="p-4" onSubmit={handleSubmit(submitForm)}>
         <Controller
           name="date"
           control={control}
           render={({ field }) => (
-            <DatePicker
-              {...field}
-              selected={field.value}
-            />
+            <label>
+              Date Eaten: 
+              <DatePicker
+                onChange={(date) => field.onChange(date)}
+                selected={field.value}
+              />
+             </label>
           )}
         />
-
-        <input
-          type="text"
-          placeholder="Meal Name"
-          {...register("name", { required: 'This is required'})}
-        />
+        <label>
+          Meal Name:
+          <input
+            type="text"
+            {...register("name", { required: 'Name is required'})}
+          />
+        </label>
         <p>{errors.name?.message}</p>
 
         <Controller
           name="ingredients"
           control={control}
-          rules={{ required: 'This is also required' }}
+          rules={{ required: 'Ingredients are required' }}
           render={({ field }) => (
-            <Select
-            {...field}
-            isMulti={true}
-            options={ingredientsSelectOptions}
-            closeMenuOnSelect={false}
-            />
+            <label>
+              Ingredients:
+              <Select
+                {...field}
+                isMulti={true}
+                options={ingredientsSelectOptions}
+                closeMenuOnSelect={false}
+              />
+            </label>
           )}
         />
         <p>{errors.ingredients?.message}</p>
