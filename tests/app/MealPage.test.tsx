@@ -29,7 +29,7 @@ describe(MealPage, () => {
     expect(screen.getByText('meal: testMeal, ingredientOptions: testIngredients')).toBeInTheDocument()
   })
   
-  test('calls meal with params.id', async () => {
+  test('calls getMealWithIngredients with params.id', async () => {
     render( await MealPage({params: {id: 'testId'}}))
     expect(mocks.getMealWithIngredients).toHaveBeenCalledWith('testId')
   })
