@@ -1,7 +1,7 @@
 import PointsCard from "@/components/PointsCard"
 import DayOfMealsCard from "@/components/DayOfMealsCard"
 import { MealWithIngredients } from "@/utils/types"
-import { getMeals } from "@/utils/getMeals"
+import { getMeals } from "@/utils/dbQueries"
 import { getDateFromSixDaysAgo } from "@/utils/getDateFromSixDaysAgo"
 
 const DiaryPage = async () => {
