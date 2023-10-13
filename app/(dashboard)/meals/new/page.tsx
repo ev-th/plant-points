@@ -1,15 +1,6 @@
 import MealForm from '@/components/MealForm'
-import { prisma } from '@/utils/db'
 import React from 'react'
-
-const getIngredients = async () => {
-  const ingredients = await prisma.ingredient.findMany({
-    orderBy: {
-      name: 'asc'
-    }
-  })
-  return ingredients
-}
+import { getIngredients } from '@/utils/dbQueries'
 
 const NewMealPage = async () => {
   const ingredients = await getIngredients()
