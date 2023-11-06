@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --orange: #dd6e42;
-  --dark-green: #143109;
-  --light-green: #70ae6e;
-  --grey: #efefef;
-  --white: #fffbff;
+  --black: #313638;
+  --ivory: #f2f5ea;
+  --green: #32936F;
+  --grey: #D6DBD2;
+  --pink: #9E829C;
 }

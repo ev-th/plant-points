@@ -5,11 +5,10 @@ const MealCard = ({ meal }: { meal: MealWithIngredients }) => {
   const points = meal.ingredients.reduce((sum, ingredient) => sum + +ingredient.points, 0)
 
     return (
-      <div className="bg-green-300 rounded-lg p-2 my-1">
-        <h4 className="text-xl font-semibold">{meal.name}</h4>
-        <p>Eaten on {date}</p>
-        <p>Points: {points}</p>
-        <ul>
+      <div className="bg-slate-50 rounded-lg shadow-lg h-60 overflow-scroll hover:bg-slate-200">
+        <h4 className="text-xl font-semibold p-2 mb-1 mt-2">{meal.name}</h4>
+        <div className='h-0.5 bg-slate-200'></div>
+        <ul className="p-2">
           {meal.ingredients.map(ingredient => (
             <li key={`${meal.id}_${ingredient.id}`}>- {ingredient.name}</li>)
           )}

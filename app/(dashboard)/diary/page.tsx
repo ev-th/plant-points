@@ -9,10 +9,11 @@ const DiaryPage = async () => {
   const sortedMeals = sortMealsByDay(meals)
   
   return (
-    <div className="p-5">
-      
-      <h2 className="text-3xl mb-8">Your Meal Diary</h2>
-      <PointsCard meals={meals}/>
+    <div>
+      <h2 className="text-4xl m-8 font-bold text-center">Food Diary</h2>
+      <div className="px-4">
+        <PointsCard meals={meals}/>
+      </div>
       {sortedMeals.map(dayOfMeals => <DayOfMealsCard key={dayOfMeals[0].eatenAt.toDateString()} meals={dayOfMeals} />)}
     </div>
   )

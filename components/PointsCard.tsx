@@ -5,12 +5,22 @@ const PointsCard = ({meals}: {meals: MealWithIngredients[]}) => {
   const ingredients = getUniqueIngredients(meals)
   const points = calculatePoints(meals)
   return (
-    <div className='bg-gray-300 rounded-lg p-2'>
-      <p role='region'>Your plant points over the last 7 days: {points}</p>
-      <p className='font-semibold'>Ingredients you&#39;ve eaten this week:</p>
-      <ul role="list">
+    <div className='text-center mx-auto my-5 shadow-lg rounded-xl py-4 bg-slate-50 max-w-7xl'>
+      <div role='region'>
+        Your plant points over the last 7 days: 
+        <div className='m-5 text-slate-50 inline-flex items-center justify-center h-16 w-16 rounded-full bg-[var(--green)]'>
+          <span className='text-2xl'>{points}</span>
+        </div>
+      </div>
+      <div className='h-0.5 bg-slate-200'></div>
+      <ul role="list" className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 pt-5">
         {ingredients.map(ingredient => (
-          <li key={ingredient.id}>- {ingredient.name}, points: {ingredient.points.toString()}</li>)
+          <li className="flex justify-center my-1" key={ingredient.id}>
+            {ingredient.name}
+            <div className='mx-2 text-slate-50 inline-flex items-center justify-center h-6 w-6 rounded-full bg-[var(--green)]'>
+              {ingredient.points.toString()}
+            </div>
+          </li>)
         )}
       </ul>
     </div>
