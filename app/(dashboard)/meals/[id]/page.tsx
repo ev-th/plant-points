@@ -6,8 +6,11 @@ const MealPage = async ({ params }: {params: {id: string}}) => {
   const ingredientOptions = await getIngredients()
 
   return (
-    <div>
-      <MealForm meal={meal} ingredientOptions={ingredientOptions}  />
+    <div className="rounded border bg-slate-50 shadow-lg mx-4 my-4 sm:max-w-xl sm:mx-auto">
+      <h1 className='text-3xl m-8 text-center font-bold'>Edit your meal</h1>
+      <div className="m-4">
+        <MealForm meal={meal} ingredientOptions={ingredientOptions}  />
+      </div>
     </div>
   )
 }

@@ -73,49 +73,55 @@ const MealForm = ({ ingredientOptions, meal }: { ingredientOptions: Ingredient[]
   return (
     <div>
       {loading && <div>Loading...</div>}
-      <form aria-label={"meal form"} className="p-4" onSubmit={handleSubmit(submitForm)}>
-        <Controller
-          name="date"
-          control={control}
-          render={({ field }) => (
-            <label>
-              Date Eaten: 
-              <DatePicker
-                onChange={(date) => field.onChange(date)}
-                selected={field.value}
-              />
-             </label>
-          )}
-        />
-        <label>
-          Meal Name:
+      <form aria-label={"meal form"} onSubmit={handleSubmit(submitForm)} className='flex flex-col gap-6'>
+        <div>
+          <label htmlFor="name" className='block'>Meal Name:</label>
           <input
+            className='rounded border-2 w-full h-9 border-gray-200 px-2'
             type="text"
             {...register("name", { required: 'Name is required'})}
           />
-        </label>
-        <p>{errors.name?.message}</p>
+          <p>{errors.name?.message}</p>
+        </div>
 
-        <Controller
-          name="ingredients"
-          control={control}
-          rules={{ required: 'Ingredients are required' }}
-          render={({ field }) => (
-            <label>
-              Ingredients:
+        <div>
+          <label htmlFor="date" className='block'>Date Eaten:</label>
+            <Controller
+              name="date"
+              control={control}
+              render={({ field }) => (
+                <DatePicker
+                  className='rounded border-2 h-9 border-gray-200 px-2 w-32'
+                  onChange={(date) => field.onChange(date)}
+                  selected={field.value}
+                />
+              )}
+            />
+        </div>
+
+        <div>
+          <label htmlFor="ingredients">Ingredients:</label>
+          <Controller
+            name="ingredients"
+            control={control}
+            rules={{ required: 'Ingredients are required' }}
+            render={({ field }) => (
               <Select
                 {...field}
+                // unstyled
                 isMulti={true}
                 options={ingredientsSelectOptions}
                 closeMenuOnSelect={false}
               />
-            </label>
-          )}
-        />
-        <p>{errors.ingredients?.message}</p>
+            )}
+          />
+          <p>{errors.ingredients?.message}</p>
+        </div>
 
-        <button className="bg-green-300 rounded-lg p-2" type="submit">Save</button>
-        {meal && <button className="bg-red-300 rounded-lg p-2" onClick={handleDelete}>Delete</button>}
+        <div className='flex gap-6 mx-auto'>
+          <button className="bg-[var(--green)] text-[var(--ivory)] rounded-lg p-2 w-28 my-2" type="submit">Save</button>
+          {meal && <button className="bg-red-600 text-[var(--ivory)] rounded-lg p-2 w-28 my-2" onClick={handleDelete}>Delete</button>}
+        </div>
       </form>
     </div>
   )
