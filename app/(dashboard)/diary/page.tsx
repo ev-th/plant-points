@@ -11,10 +11,17 @@ const DiaryPage = async () => {
   return (
     <div>
       <h2 className="text-4xl m-8 font-bold text-center">Food Diary</h2>
-      <div className="px-4">
-        <PointsCard meals={meals}/>
+      <div className="m-4 md:my-6 lg:my-8 max-w-7xl xl:mx-auto">
+        <PointsCard meals={meals} />
       </div>
-      {sortedMeals.map(dayOfMeals => <DayOfMealsCard key={dayOfMeals[0].eatenAt.toDateString()} meals={dayOfMeals} />)}
+      {sortedMeals.map(dayOfMeals => (
+        <div key={dayOfMeals[0].eatenAt.toDateString()}>
+          <div className='h-0.5 bg-slate-200'></div>
+          <div className="m-4 md:my-6 lg: my-8">
+            <DayOfMealsCard meals={dayOfMeals} />
+          </div>
+        </div>
+      ))}
     </div>
   )
 }

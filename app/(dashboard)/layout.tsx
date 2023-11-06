@@ -6,7 +6,7 @@ type DashboardLayoutProps = {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
-    <div className="h-full w-full bg-slate-100">
+    <div>
       <NavBar />
       <div>{children}</div>
     </div>

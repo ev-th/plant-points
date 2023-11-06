@@ -5,7 +5,7 @@ const PointsCard = ({meals}: {meals: MealWithIngredients[]}) => {
   const ingredients = getUniqueIngredients(meals)
   const points = calculatePoints(meals)
   return (
-    <div className='text-center mx-auto my-5 shadow-lg rounded-xl py-4 bg-slate-50 max-w-7xl'>
+    <div className='text-center shadow-lg rounded-xl py-4 bg-slate-50'>
       <div role='region'>
         Your plant points over the last 7 days: 
         <div className='m-5 text-slate-50 inline-flex items-center justify-center h-16 w-16 rounded-full bg-[var(--green)]'>
