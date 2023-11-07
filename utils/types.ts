@@ -1,3 +1,3 @@
-import type { Meal, Ingredient } from '@prisma/client'
+import type { Meal, Ingredient } from "@prisma/client";
 
-export type MealWithIngredients = Meal & { ingredients: Ingredient[]}
+export type MealWithIngredients = Meal & { ingredients: Ingredient[] };
