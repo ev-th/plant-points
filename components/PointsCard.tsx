@@ -4,6 +4,15 @@ import { MealWithIngredients } from "@/utils/types";
 const PointsCard = ({ meals }: { meals: MealWithIngredients[] }) => {
   const ingredients = getUniqueIngredients(meals);
   const points = calculatePoints(meals);
+
+  const formatPoints = (points: number): string => {
+    if (points >= 1) {
+      return points.toString();
+    }
+
+    return points.toString().slice(1);
+  };
+
   return (
     <div className="text-center shadow-lg rounded-xl py-4 bg-slate-50">
       <div role="region">
@@ -20,8 +29,8 @@ const PointsCard = ({ meals }: { meals: MealWithIngredients[] }) => {
         {ingredients.map((ingredient) => (
           <li className="flex justify-center my-1" key={ingredient.id}>
             {ingredient.name}
-            <div className="mx-2 text-slate-50 inline-flex items-center justify-center h-6 w-6 rounded-full bg-[var(--green)]">
-              {ingredient.points.toString()}
+            <div className="mx-2 text-slate-50 text-xs inline-flex items-center justify-center h-7 w-7 rounded-full bg-[var(--green)]">
+              {formatPoints(ingredient.points)}
             </div>
           </li>
         ))}
