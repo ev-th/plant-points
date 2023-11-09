@@ -16,7 +16,7 @@ export const NavBar = () => {
           </Link>
         </li>
         <li>
-          <UserButton />
+          <UserButton afterSignOutUrl="/" />
         </li>
       </ul>
     </nav>
