@@ -6,18 +6,19 @@ const Home = () => {
   const href = userId ? "/diary" : "/new-user";
 
   return (
-    <div className="flex justify-center items-center w-screen h-screen">
+    <div className="flex justify-center items-center w-screen h-screen p-6">
       <div className="max-w-4xl">
-        <h1 role="heading" className="text-8xl mb-4">
+        <h1 role="heading" className="text-8xl mb-8">
           Plant Points Tracker
         </h1>
         <p role="region" className="text-2xl mb-12">
-          Keep track of the variety of plant based foods you eat. Each
-          ingredient is worth a point. Aim for 30 per week.
+          A diary to keep track of the variety of plant-based foods you eat and
+          calculate your running total of weekly plant points. Aim for 30 for a
+          healthy gut!
         </p>
         <Link
           role="link"
-          className="bg-green-300 rounded-md px-4 py-2 text-lg"
+          className="bg-[var(--green)] text-slate-50 rounded-md px-5 py-3 text-2xl"
           href={href}
         >
           Get started
