@@ -104,7 +104,11 @@ const MealForm = ({
             type="text"
             {...register("name", { required: "Name is required" })}
           />
-          <p>{errors.name?.message}</p>
+          {errors.name && (
+            <p className="text-xs bg-red-200 rounded py-1 px-3 mt-1 w-fit">
+              {errors.name.message}
+            </p>
+          )}
         </div>
 
         <div>
@@ -139,7 +143,11 @@ const MealForm = ({
               />
             )}
           />
-          <p>{errors.ingredients?.message}</p>
+          {errors.ingredients && (
+            <p className="text-xs bg-red-200 rounded py-1 px-3 mt-1 w-fit">
+              {errors.ingredients.message}
+            </p>
+          )}
         </div>
 
         <button
