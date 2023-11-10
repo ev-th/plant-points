@@ -11,6 +11,7 @@ import { MealWithIngredients } from "@/utils/types";
 
 import { createNewMeal, updateMeal, deleteMeal } from "@/utils/api";
 import { update } from "@/utils/actions";
+import LoadingSpinner from "./LoadingSpinner";
 
 const MealForm = ({
   ingredientOptions,
@@ -19,7 +20,8 @@ const MealForm = ({
   ingredientOptions: Ingredient[];
   meal?: MealWithIngredients;
 }) => {
-  const [loading, setLoading] = useState(false);
+  const [loadingSave, setLoadingSave] = useState(false);
+  const [loadingDelete, setLoadingDelete] = useState(false);
   const router = useRouter();
 
   const ingredientsSelectOptions = ingredientOptions.map((ingredient) => {
@@ -55,7 +57,7 @@ const MealForm = ({
     ingredients: { value: string }[];
     date: Date;
   }) => {
-    setLoading(true);
+    setLoadingSave(true);
 
     const mealData = {
       name: formValues.name,
@@ -71,25 +73,23 @@ const MealForm = ({
       await createNewMeal(mealData);
     }
 
-    setLoading(false);
     update(["/diary"]);
     router.push("/diary");
   };
 
   const handleDelete = async () => {
-    setLoading(true);
+    setLoadingDelete(true);
 
     if (meal) {
       await deleteMeal(meal.id);
     }
 
-    setLoading(false);
+    update(["/diary"]);
     router.replace("/diary");
   };
 
   return (
-    <div>
-      {loading && <div>Loading...</div>}
+    <div className="flex flex-col">
       <form
         aria-label={"meal form"}
         onSubmit={handleSubmit(submitForm)}
@@ -133,7 +133,6 @@ const MealForm = ({
             render={({ field }) => (
               <Select
                 {...field}
-                // unstyled
                 isMulti={true}
                 options={ingredientsSelectOptions}
                 closeMenuOnSelect={false}
@@ -143,23 +142,22 @@ const MealForm = ({
           <p>{errors.ingredients?.message}</p>
         </div>
 
-        <div className="flex gap-6 mx-auto">
-          <button
-            className="bg-[var(--green)] text-[var(--ivory)] rounded-lg p-2 w-28 my-2"
-            type="submit"
-          >
-            Save
-          </button>
-          {meal && (
-            <button
-              className="bg-red-600 text-[var(--ivory)] rounded-lg p-2 w-28 my-2"
-              onClick={handleDelete}
-            >
-              Delete
-            </button>
-          )}
-        </div>
+        <button
+          className="bg-[var(--green)] text-slate-50 rounded-lg p-2 w-52 my-2 mx-auto"
+          type="submit"
+        >
+          {loadingSave ? <LoadingSpinner color="[var(--green)]" /> : "Save"}
+        </button>
       </form>
+
+      {meal && (
+        <button
+          className="bg-red-600 text-slate-50 rounded-lg p-2 w-52 mb-4 mx-auto"
+          onClick={handleDelete}
+        >
+          {loadingDelete ? <LoadingSpinner color="red-600" /> : "Delete"}
+        </button>
+      )}
     </div>
   );
 };
