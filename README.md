@@ -1,4 +1,4 @@
-Plant Points is a web app that helps users keep track of the variety of plant-based foods they're eating. Aiming for the goal of [30 plant points per week](https://www.theguthealthdoctor.com/30-plant-points), users can record the meals they eat and stay updated on their running plant points total.
+Plant Points is a web app that helps users keep track of the variety of plant-based foods they're eating. Aiming for the goal of [30 plant points per week](https://www.theguthealthdoctor.com/30-plant-points), users can record the meals they eat and stay updated on their running plant points total. It's deployed on Vercel and you can check it out [here](https://plant-points.vercel.app/).
 
 ## Getting Started
 
