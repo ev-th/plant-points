@@ -123,6 +123,7 @@ const MealForm = ({
                 className="rounded border-2 h-9 border-gray-200 px-2 w-32"
                 onChange={(date) => field.onChange(date)}
                 selected={field.value}
+                dateFormat="dd/MM/yyyy"
               />
             )}
           />
