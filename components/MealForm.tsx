@@ -155,7 +155,7 @@ const MealForm = ({
           className="bg-[var(--green)] text-slate-50 rounded-lg p-2 w-52 my-2 mx-auto"
           type="submit"
         >
-          {loadingSave ? <LoadingSpinner color="[var(--green)]" /> : "Save"}
+          {loadingSave ? <LoadingSpinner /> : "Save"}
         </button>
       </form>
 
@@ -164,7 +164,7 @@ const MealForm = ({
           className="bg-red-600 text-slate-50 rounded-lg p-2 w-52 mb-4 mx-auto"
           onClick={handleDelete}
         >
-          {loadingDelete ? <LoadingSpinner color="red-600" /> : "Delete"}
+          {loadingDelete ? <LoadingSpinner /> : "Delete"}
         </button>
       )}
     </div>
