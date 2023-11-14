@@ -16,13 +16,9 @@ export const NavBar = () => {
           </Link>
         </li>
         <li>
-          <a
-            role="link"
-            target="_blank"
-            href="https://www.theguthealthdoctor.com/30-plant-points"
-          >
+          <Link role="link" href="/about">
             About
-          </a>
+          </Link>
         </li>
         <li>
           <UserButton afterSignOutUrl="/" />
