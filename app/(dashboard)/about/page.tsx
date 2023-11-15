@@ -72,6 +72,8 @@ const About = () => {
             <a
               className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
               href="https://journals.asm.org/doi/10.1128/msystems.00031-18"
+              role="link"
+              target="_blank"
             >
               American Gut: an Open Platform for Citizen Science Microbiome
               Research
@@ -81,6 +83,8 @@ const About = () => {
             <a
               className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
               href="https://zoe.com/learn/30-plants-per-week"
+              role="link"
+              target="_blank"
             >
               Why should you eat 30 plants a week?
             </a>
@@ -89,6 +93,8 @@ const About = () => {
             <a
               className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
               href="https://www.theguardian.com/lifeandstyle/2023/mar/19/chew-slowly-keep-moving-and-eat-30-plants-a-week-12-rules-for-gut-health"
+              role="link"
+              target="_blank"
             >
               Chew slowly, keep moving and eat 30 plants a week: 12 rules for
               gut health
