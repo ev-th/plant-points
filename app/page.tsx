@@ -9,7 +9,7 @@ const Home = () => {
     <div className="flex justify-center items-center w-screen h-screen p-6">
       <div className="max-w-4xl">
         <h1 role="heading" className="text-8xl mb-8">
-          Plant Points Tracker
+          Plant Point Tracker
         </h1>
         <p role="region" className="text-2xl mb-12">
           A diary to keep track of the variety of plant-based foods you eat and
