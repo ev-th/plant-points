@@ -9,17 +9,17 @@ vi.mock("@clerk/nextjs", () => {
 });
 
 describe(NavBar, () => {
-  test("has the title with a link to the diary page", () => {
+  test("has a link to the diary page", () => {
     render(NavBar());
     const element = screen.getAllByRole("link")[0];
-    expect(element).toHaveTextContent("Plant Points");
+    expect(element).toHaveTextContent("Diary");
     expect(element.getAttribute("href")).toBe("/diary");
   });
 
   test("has a link to add a new diary entry", () => {
     render(NavBar());
     const element = screen.getAllByRole("link")[1];
-    expect(element).toHaveTextContent("Add to Diary");
+    expect(element).toHaveTextContent("Add Meal");
     expect(element.getAttribute("href")).toBe("/meals/new");
   });
 

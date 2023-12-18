@@ -40,7 +40,7 @@ describe(PointsCard, () => {
 
     render(PointsCard({ meals }));
     expect(screen.getByRole("region")).toHaveTextContent(
-      "Your plant points over the last 7 days: 32",
+      "Your plant points over the last 7 days:32",
     );
   });
 
@@ -69,10 +69,10 @@ describe(PointsCard, () => {
     render(PointsCard({ meals }));
     expect(screen.getByRole("list").children.length).toBe(4);
     expect(screen.getByRole("list").children[0]).toHaveTextContent(
-      "- mockIngredient1, points: 1",
+      "mockIngredient1 1",
     );
     expect(screen.getByRole("list").children[2]).toHaveTextContent(
-      "- mockIngredient3, points: 3",
+      "mockIngredient3 3",
     );
   });
 });

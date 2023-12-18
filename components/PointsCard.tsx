@@ -28,7 +28,7 @@ const PointsCard = ({ meals }: { meals: MealWithIngredients[] }) => {
       >
         {ingredients.map((ingredient) => (
           <li className="flex justify-center my-1" key={ingredient.id}>
-            {ingredient.name}
+            {ingredient.name + " "}
             <div className="mx-2 text-slate-50 text-xs inline-flex items-center justify-center h-7 w-7 rounded-full bg-[var(--green)]">
               {formatPoints(ingredient.points)}
             </div>

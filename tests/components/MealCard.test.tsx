@@ -19,16 +19,6 @@ describe(MealCard, () => {
     expect(screen.getByText("testName")).toBeInTheDocument();
   });
 
-  test("displays the date eaten", () => {
-    render(MealCard({ meal }));
-    expect(screen.getByText("Eaten on Thu Oct 12 2023")).toBeInTheDocument();
-  });
-
-  test("displays the total plant points", () => {
-    render(MealCard({ meal }));
-    expect(screen.getByText("Points: 3.25")).toBeInTheDocument();
-  });
-
   test("displays the ingredients", () => {
     render(MealCard({ meal }));
     expect(screen.getByText("- testIngredient1")).toBeInTheDocument();

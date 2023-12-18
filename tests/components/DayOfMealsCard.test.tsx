@@ -45,9 +45,7 @@ describe(DayOfMealsCard, () => {
     ] as MealWithIngredients[];
 
     render(DayOfMealsCard({ meals }));
-    expect(screen.getByRole("region")).toHaveTextContent(
-      "Eaten on Fri Sep 15 2023",
-    );
+    expect(screen.getByRole("region")).toHaveTextContent("15 Sep");
   });
 
   test("displays meal cards for each meal with a link to the edit page", () => {
