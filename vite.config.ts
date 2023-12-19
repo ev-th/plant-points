@@ -11,6 +11,11 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: "./tests/helpers/setup.ts",
-    mockReset: true,
+    mockReset: false,
+    poolOptions: {
+      forks: {
+        singleFork: true,
+      },
+    },
   },
 });

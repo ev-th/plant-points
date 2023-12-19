@@ -16,6 +16,10 @@ const MealCard = ({ meal }: { meal: MealWithIngredients }) => {
           <li key={`${meal.id}_${ingredient.id}`}>- {ingredient.name}</li>
         ))}
       </ul>
+      <ul>
+        <li>Favourite</li>
+        <li>Repeat</li>
+      </ul>
     </div>
   );
 };

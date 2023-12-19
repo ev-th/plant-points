@@ -29,14 +29,16 @@ describe(Home, () => {
     mocks.auth.mockReturnValue({ userId: "fake_id" });
     render(Home());
     expect(screen.getByRole("heading")).toHaveTextContent(
-      "Plant Points Tracker",
+      "Plant Point Tracker",
     );
   });
 
   test("has description", () => {
     mocks.auth.mockReturnValue({ userId: "fake_id" });
     render(Home());
-    expect(screen.getByRole("region")).toHaveTextContent("Keep track");
+    expect(screen.getByRole("region")).toHaveTextContent(
+      "A diary to keep track",
+    );
   });
 
   test("has button", () => {
