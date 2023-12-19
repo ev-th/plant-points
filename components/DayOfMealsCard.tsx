@@ -21,9 +21,7 @@ const DayOfMealsCard = ({ meals }: { meals: MealWithIngredients[] }) => {
               key={meal.id}
               className="basis-1/2 md:basis-1/3 lg:basis-1/4 p-1"
             >
-              <Link role="link" href={`/meals/${meal.id}`}>
-                <MealCard meal={meal} />
-              </Link>
+              <MealCard meal={meal} />
             </li>
           ))}
         </ul>
