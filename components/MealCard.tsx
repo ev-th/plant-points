@@ -30,17 +30,17 @@ const MealCard = ({ meal }: { meal: MealWithIngredients }) => {
           ))}
         </ul>
       </div>
-      <ul className="flex absolute bottom-2 right-2 gap-4 ">
+      <ul className="flex items-center justify-end p-4 gap-4">
         <li>
           <FontAwesomeIcon
             icon={faStarRegular}
-            className="w-6 text-[var(--green)]"
+            className="w-8 p-1 text-[var(--green)] rounded-md hover:bg-slate-200"
           />
         </li>
         <li>
           <FontAwesomeIcon
             icon={faRepeat}
-            className="w-6 text-[var(--green)]"
+            className="w-8 p-1 text-[var(--green)] rounded-md hover:bg-slate-200"
           />
         </li>
       </ul>
