@@ -38,10 +38,12 @@ const MealCard = ({ meal }: { meal: MealWithIngredients }) => {
           />
         </li>
         <li>
-          <FontAwesomeIcon
-            icon={faRepeat}
-            className="w-8 p-1 text-[var(--green)] rounded-md hover:bg-slate-200"
-          />
+          <Link role="link" href={`/meals/new/${meal.id}`}>
+            <FontAwesomeIcon
+              icon={faRepeat}
+              className="w-8 p-1 text-[var(--green)] rounded-md hover:bg-slate-200"
+            />
+          </Link>
         </li>
       </ul>
     </div>

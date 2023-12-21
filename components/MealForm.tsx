@@ -16,9 +16,11 @@ import LoadingSpinner from "./LoadingSpinner";
 const MealForm = ({
   ingredientOptions,
   meal,
+  originalMeal,
 }: {
   ingredientOptions: Ingredient[];
   meal?: MealWithIngredients;
+  originalMeal?: MealWithIngredients;
 }) => {
   const [loadingSave, setLoadingSave] = useState(false);
   const [loadingDelete, setLoadingDelete] = useState(false);
@@ -29,14 +31,24 @@ const MealForm = ({
   });
 
   const getIngredientOptions = () => {
-    if (!meal) return [];
+    let selectedIds: string[];
+    if (originalMeal) {
+      selectedIds = originalMeal.ingredients.map((ingredient) => ingredient.id);
+    } else if (meal) {
+      selectedIds = meal.ingredients.map((ingredient) => ingredient.id);
+    } else {
+      return [];
+    }
 
-    const optionIds = ingredientOptions.map((ingredient) => ingredient.id);
-    const selectedIds = meal.ingredients.map((ingredient) => ingredient.id);
+    return ingredientsSelectOptions.filter((option) => {
+      return selectedIds.includes(option.value);
+    });
+  };
 
-    const indices: number[] = [];
-    optionIds.forEach((id, i) => selectedIds.includes(id) && indices.push(i));
-    return indices.map((i) => ingredientsSelectOptions[i]);
+  const getMealName = () => {
+    if (originalMeal) return originalMeal.name;
+    if (meal) return meal.name;
+    return "";
   };
 
   const {
@@ -46,7 +58,7 @@ const MealForm = ({
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: meal?.name ?? "",
+      name: getMealName(),
       ingredients: getIngredientOptions(),
       date: meal?.eatenAt ?? new Date(),
     },
