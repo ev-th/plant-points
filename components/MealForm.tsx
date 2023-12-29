@@ -114,6 +114,7 @@ const MealForm = ({
           <input
             className="rounded border-2 w-full h-9 border-gray-200 px-2"
             type="text"
+            autoComplete="off"
             {...register("name", { required: "Name is required" })}
           />
           {errors.name && (
@@ -132,6 +133,7 @@ const MealForm = ({
             control={control}
             render={({ field }) => (
               <DatePicker
+                name="date"
                 className="rounded border-2 h-9 border-gray-200 px-2 w-32"
                 onChange={(date) => field.onChange(date)}
                 selected={field.value}
@@ -153,6 +155,7 @@ const MealForm = ({
                 isMulti={true}
                 options={ingredientsSelectOptions}
                 closeMenuOnSelect={false}
+                blurInputOnSelect={false}
               />
             )}
           />
