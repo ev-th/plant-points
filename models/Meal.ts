@@ -7,6 +7,7 @@ export default class Meal {
     public ingredientIds: string[],
     public date: Date,
     public id: string | null = null,
+    public favorite: boolean,
   ) {}
 
   static fromRequest(
@@ -14,9 +15,13 @@ export default class Meal {
     body: Record<string, any>,
     mealId: string | null = null,
   ): Meal | null {
-    const { name, ingredientIds, date } = body;
+    const { name, ingredientIds, date, favorite } = body;
 
-    if (typeof name !== "string" || !Array.isArray(ingredientIds)) {
+    if (
+      typeof name !== "string" ||
+      !Array.isArray(ingredientIds) ||
+      typeof favorite !== "boolean"
+    ) {
       return null;
     }
     if (!ingredientIds.every((id) => typeof id === "string")) {
@@ -27,7 +32,7 @@ export default class Meal {
       return null;
     }
 
-    return new Meal(userId, name, ingredientIds, date, mealId);
+    return new Meal(userId, name, ingredientIds, date, mealId, favorite);
   }
 
   createOnDatabase() {
@@ -39,6 +44,7 @@ export default class Meal {
         ingredients: {
           connect: this.ingredientIds.map((id) => ({ id })),
         },
+        favorite: this.favorite,
       },
     });
   }
@@ -61,6 +67,7 @@ export default class Meal {
         ingredients: {
           set: this.ingredientIds.map((id) => ({ id })),
         },
+        favorite: this.favorite,
       },
     });
   }

@@ -6,10 +6,12 @@ export const createNewMeal = async ({
   name,
   ingredientIds,
   date,
+  favorite,
 }: {
   name: string;
   ingredientIds: string[];
   date: Date;
+  favorite: boolean;
 }) => {
   const res = await fetch(
     new Request(createURL("/api/meal"), {
@@ -18,6 +20,7 @@ export const createNewMeal = async ({
         name,
         ingredientIds,
         date,
+        favorite,
       }),
     }),
   );
@@ -41,11 +44,13 @@ export const updateMeal = async ({
   name,
   ingredientIds,
   date,
+  favorite,
 }: {
   id: string;
   name: string;
   ingredientIds: string[];
   date: Date;
+  favorite: boolean;
 }) => {
   const res = await fetch(
     new Request(createURL(`/api/meal/${id}`), {
@@ -54,6 +59,7 @@ export const updateMeal = async ({
         name,
         ingredientIds,
         date,
+        favorite,
       }),
     }),
   );

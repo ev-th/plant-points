@@ -80,9 +80,9 @@ const MealForm = ({
     };
 
     if (meal) {
-      await updateMeal({ ...mealData, id: meal.id });
+      await updateMeal({ ...mealData, favorite: meal.favorite, id: meal.id });
     } else {
-      await createNewMeal(mealData);
+      await createNewMeal({ ...mealData, favorite: false });
     }
 
     update(["/diary"]);
