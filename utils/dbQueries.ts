@@ -31,7 +31,7 @@ export const getMealWithIngredients = async (
   });
 };
 
-export const getMeals = async (
+export const getMealsByDate = async (
   dateFrom: Date,
   dateTo: Date,
 ): Promise<MealWithIngredients[]> => {

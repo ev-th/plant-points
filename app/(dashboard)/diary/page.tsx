@@ -1,11 +1,14 @@
 import PointsCard from "@/components/PointsCard";
 import DayOfMealsCard from "@/components/DayOfMealsCard";
-import { getMeals } from "@/utils/dbQueries";
+import { getMealsByDate } from "@/utils/dbQueries";
 import { getDateFromSixDaysAgo } from "@/utils/getDateFromSixDaysAgo";
 import { sortMealsByDay } from "@/utils/sortMealsByDay";
 
 const DiaryPage = async () => {
-  const meals = await getMeals(getDateFromSixDaysAgo(new Date()), new Date());
+  const meals = await getMealsByDate(
+    getDateFromSixDaysAgo(new Date()),
+    new Date(),
+  );
   const sortedMeals = sortMealsByDay(meals);
 
   return (
