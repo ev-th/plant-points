@@ -50,3 +50,17 @@ export const getMealsByDate = async (
     },
   });
 };
+
+export const getFavoriteMeals = async (): Promise<MealWithIngredients[]> => {
+  const user = await getUserByClerkId();
+
+  return prisma.meal.findMany({
+    where: {
+      userId: user.id,
+      favorite: true,
+    },
+    include: {
+      ingredients: true,
+    },
+  });
+};
