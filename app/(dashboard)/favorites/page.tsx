@@ -1,4 +1,3 @@
-import PointsCard from "@/components/PointsCard";
 import { getFavoriteMeals } from "@/utils/dbQueries";
 import MealCard from "@/components/MealCard";
 
