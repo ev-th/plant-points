@@ -18,7 +18,7 @@ const MealCard = ({ meal }: { meal: MealWithIngredients }) => {
 
   const toggleFavorite = async () => {
     console.log("hello");
-    const m = await updateMeal({
+    await updateMeal({
       id: meal.id,
       name: meal.name,
       ingredientIds: meal.ingredients.map((ingredient) => ingredient.id),
