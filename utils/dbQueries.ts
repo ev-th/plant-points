@@ -62,5 +62,8 @@ export const getFavoriteMeals = async (): Promise<MealWithIngredients[]> => {
     include: {
       ingredients: true,
     },
+    orderBy: {
+      name: "asc",
+    },
   });
 };
