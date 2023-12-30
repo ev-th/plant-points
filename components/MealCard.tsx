@@ -43,7 +43,7 @@ const MealCard = ({ meal }: { meal: MealWithIngredients }) => {
           ))}
         </ul>
       </div>
-      <ul className="flex items-center justify-end p-4 gap-4">
+      <ul className="flex items-center justify-center md:justify-end p-4 gap-4">
         <li>
           <button onClick={toggleFavorite}>
             {favorite ? (
