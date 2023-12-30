@@ -16,6 +16,11 @@ export const NavBar = () => {
           </Link>
         </li>
         <li>
+          <Link role="link" href="/favorites">
+            Favorites
+          </Link>
+        </li>
+        <li>
           <Link role="link" href="/about">
             About
           </Link>
