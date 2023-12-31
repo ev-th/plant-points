@@ -30,7 +30,7 @@ model Meal {
   ingredients Ingredient[]
   eatenAt     DateTime     @default(now())
   userId      String
-  user        User         @relation(fields: [userId], references: [id])
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   favorite  Boolean @default(false)
 
   @@unique([userId, id])
