@@ -17,3 +17,5 @@ main()
     await prisma.$disconnect();
     process.exit(1);
   });
+
+// Use `npx prisma db seed` to seed the database
